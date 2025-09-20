@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matheus Gonzalez</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+    <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+    <script type="module">
+        import * as lucide from 'https://unpkg.com/lucide@latest/dist/esm/lucide.js';
+        window.lucide = lucide;
+    </script>
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        (function(){
+            emailjs.init("KKpOf1gb2cZvuUogE"); 
+        })();
+    </script>
+    
+</head>
+<body>
+    <!-- Intro Overlay: Laptop 3D -->
+    <div id="intro-overlay" aria-hidden="true">
+        <div class="intro-center">
+            <div class="laptop3d" role="img" aria-label="Laptop 3D abrindo">
+                <div class="laptop-base">
+                    <div class="keyboard"></div>
+                    <div class="trackpad"></div>
+                </div>
+                <div class="laptop-screen">
+                    <div class="screen-glass">
+                        <div class="boot-line">$ npm start portfolio</div>
+                        <div class="boot-line">Loading UI...</div>
+                        <div class="boot-line">Optimizing assets...</div>
+                        <div class="boot-line ok">Ready.</div>
+                    </div>
+                </div>
+                <div class="laptop-shadow"></div>
+            </div>
+            <div class="enter-hint">Enter</div>
+        </div>
+    </div>
+
+    <!-- Cyber Matrix Background -->
+    <div id="cyber-matrix">
+        <canvas id="matrix-canvas"></canvas>
+    </div>
+    
+    <!-- Holographic Interface -->
+    <div id="hologram-container">
+        <div class="hologram-ring ring-1"></div>
+        <div class="hologram-ring ring-2"></div>
+        <div class="hologram-ring ring-3"></div>
+    </div>
+    
+    <!-- Neural Network Visualization -->
+    <div id="neural-network">
+        <div class="neuron" style="--delay: 0s"></div>
+        <div class="neuron" style="--delay: 0.5s"></div>
+        <div class="neuron" style="--delay: 1s"></div>
+        <div class="neuron" style="--delay: 1.5s"></div>
+        <div class="neuron" style="--delay: 2s"></div>
+        <div class="neuron" style="--delay: 2.5s"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">Matheus Gonzalez</span>
+                <div class="logo-dot"></div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#experience" class="nav-link">Experiences</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-lang">
+                <button id="lang-pt" aria-label="Português" class="lang-btn">🇧🇷</button>
+                <button id="lang-en" aria-label="English" class="lang-btn">🇺🇸</button>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="particles"></div>
+            <div class="grid-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="title-line">HELLO, I'M</span>
+                    <span class="title-name">DEVELOPER</span>
+                    <span class="title-role">FULL-STACK DEVELOPER</span>
+                </h1>
+                <p class="hero-subtitle">Transforming ideas into extraordinary digital experiences</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" onclick="scrollToSection('contact')">
+                        <span>GET IN TOUCH</span>
+                        <i data-lucide="arrow-right"></i>
+                    </button>
+                    <button class="btn-secondary" onclick="downloadResume()">
+                        <span>DOWNLOAD CV</span>
+                        <i data-lucide="download"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="profile-container">
+                    <div class="profile-image">
+                        <img src="https://via.placeholder.com/400x400/00ff88/000000?text=SEU+FOTO" alt="Foto do Perfil">
+                    </div>
+                    <div class="profile-glow"></div>
+                    <div class="floating-icons">
+                        <div class="icon" style="--delay: 0s"><i data-lucide="atom"></i></div>
+                        <div class="icon" style="--delay: 1s"><i data-lucide="server"></i></div>
+                        <div class="icon" style="--delay: 2s"><i data-lucide="brain"></i></div>
+                        <div class="icon" style="--delay: 3s"><i data-lucide="code"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="section-header">
+            <h2 class="section-title">ABOUT ME</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="about-content">
+            <div class="about-text">
+                <p class="about-description">
+                    Full Stack Web Developer with 1+ year experience in front-end and back-end development, specialized in building scalable applications, API integrations, and modern web solutions. Proficient in React, Node.js, Django, PHP, MySQL, and MongoDB. Additionally, Salesforce Certified with hands-on experience in Apex, SOQL, and LWC, bringing extra expertise in CRM customization and automation.
+                </p>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="5">1+</div>
+                        <div class="stat-label">Years of Experience</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="50">20+</div>
+                        <div class="stat-label">Completed Projects</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="20">15+</div>
+                        <div class="stat-label">Technologies Mastered</div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-visual">
+                <div class="tech-cube">
+                    <div class="cube-face front">REACT</div>
+                    <div class="cube-face back">NODE</div>
+                    <div class="cube-face right">PYTHON</div>
+                    <div class="cube-face left">DJANGO</div>
+                    <div class="cube-face top">APEX</div>
+                    <div class="cube-face bottom">PHP</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <div class="section-header">
+            <h2 class="section-title">PROFESSIONAL EXPERIENCE</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="timeline">
+             <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">DEZ/2024 - JAN/2025</div>
+                    <h3 class="timeline-title">Freelance Web Developer</h3>
+                    <h4 class="timeline-company">Freelance</h4>
+                    <p class="timeline-description">
+                        Developed a full Wedding system using HTML, CSS, PHP and MySQL. Implemented guest and family login, RSVP confirmation, and database integration. Focused on usability and secure access with authentication tokens.
+                    </p>
+                    <div class="timeline-tech">
+                        <span class="tech-tag">PHP</span>
+                        <span class="tech-tag">HTML</span>
+                        <span class="tech-tag">CSS</span>
+                        <span class="tech-tag">SQL</span>
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">APR/2024 - NOV/2024</div>
+                    <h3 class="timeline-title">Intern Developer</h3>
+                    <h4 class="timeline-company">CRAE - Casa de Repouso Amor Eterno</h4>
+                    <p class="timeline-description">
+                        Developed a fully customized management system based on specific requirements from the clinic owner. Designed and implemented a relational database using SQL. Implemented CRUD operations, enabling patient, doctor, and staff registration and consultation processes to be completed up to 60% faster compared to manual methods.  Improved internal management efficiency by 35%. Developed an automated inventory control system, optimizing internal processes and reducing operational errors by over 50%.
+                    </p>
+                    <div class="timeline-tech">
+                        <span class="tech-tag">HTML</span>
+                        <span class="tech-tag">CSS</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">PHP</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">Git</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="section-header">
+            <h2 class="section-title">TECHNICAL SKILLS</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="skills-container">
+
+    <!-- Frontend -->
+    <div class="skills-category">
+        <h3 class="category-title">Frontend</h3>
+        <div class="skills-grid">
+            <div class="skill-item">
+                <div class="skill-icon"><i class="fab fa-react"></i></div>
+                <div class="skill-name">React</div>
+                <div class="skill-bar"><div class="skill-progress" data-percent="90"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-icon"><i class="fab fa-vuejs"></i></div>
+                <div class="skill-name">Vue.js</div>
+                <div class="skill-bar"><div class="skill-progress" data-percent="80"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-icon"><i class="fab fa-js"></i></div>
+                <div class="skill-name">JavaScript</div>
+                <div class="skill-bar"><div class="skill-progress" data-percent="90"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-icon"><i class="fab fa-css3-alt"></i></div>
+                <div class="skill-name">CSS3 / Tailwind / Bootstrap</div>
+                <div class="skill-bar"><div class="skill-progress" data-percent="85"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-icon"><i class="fab fa-html5"></i></div>
+                <div class="skill-name">HTML5</div>
+                <div class="skill-bar"><div class="skill-progress" data-percent="95"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Backend -->
+    <div class="skills-category">
+        <h3 class="category-title">Backend</h3>
+        <div class="skills-grid">
+            <div class="skill-item">
+                <div class="skill-icon"><i class="fab fa-node-js"></i></div>
+                <div class="skill-name">Node.js / Express</div>
+                <div class="skill-bar"><div class="skill-progress" data-percent="88"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-icon"><i class="fab fa-python"></i></div>
+                <div class="skill-name">Python / Django</div>
+                <div class="skill-bar"><div class="skill-progress" data-percent="82"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-icon"><i class="fab fa-php"></i></div>
+                <div class="skill-name">PHP</div>
+                <div class="skill-bar"><div class="skill-progress" data-percent="80"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-icon"><i class="fas fa-bolt"></i></div>
+                <div class="skill-name">REST APIs</div>
+                <div class="skill-bar"><div class="skill-progress" data-percent="80"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Databases -->
+    <div class="skills-category">
+        <h3 class="category-title">Databases</h3>
+        <div class="skills-grid">
+            <div class="skill-item">
+                <div class="skill-icon"><i class="fas fa-database"></i></div>
+                <div class="skill-name">MySQL</div>
+                <div class="skill-bar"><div class="skill-progress" data-percent="88"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-icon"><i class="fas fa-database"></i></div>
+                <div class="skill-name">MongoDB</div>
+                <div class="skill-bar"><div class="skill-progress" data-percent="80"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-icon"><i class="fas fa-database"></i></div>
+                <div class="skill-name">SOQL (Salesforce)</div>
+                <div class="skill-bar"><div class="skill-progress" data-percent="85"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Salesforce / Cloud -->
+    <div class="skills-category">
+        <h3 class="category-title">Salesforce & Cloud</h3>
+        <div class="skills-grid">
+            <div class="skill-item">
+                <div class="skill-icon"><i class="fas fa-cloud"></i></div>
+                <div class="skill-name">Apex (Triggers, Batch, Async)</div>
+                <div class="skill-bar"><div class="skill-progress" data-percent="90"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-icon"><i class="fas fa-bolt"></i></div>
+                <div class="skill-name">Lightning Web Components</div>
+                <div class="skill-bar"><div class="skill-progress" data-percent="85"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-icon"><i class="fas fa-magic"></i></div>
+                <div class="skill-name">Aura Framework / SLDS</div>
+                <div class="skill-bar"><div class="skill-progress" data-percent="75"></div></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    </section>
+
+    <!-- Education Section -->
+<section id="education" class="education">
+    <div class="section-header">
+        <h2 class="section-title">EDUCATION & CERTIFICATIONS</h2>
+        <div class="section-line"></div>
+    </div>
+
+    <div class="education-grid">
+        <!-- Education -->
+        <div class="education-card">
+            <div>
+                <img src="assets/tamwood.png" alt="Tamwood" class="education-icon">
+            </div>
+            <div class="education-content">
+                <h3 class="education-title">Web Developer Diploma</h3>
+                <h4 class="education-institution">Tamwood International College – Vancouver</h4>
+                <div class="education-period">APR/2025 - OCT/2025</div>
+                <p class="education-description">
+                    The program includes 6 months of academic study. I've had the opportunity to develop dynamic and 
+                    responsive websites, integrate RESTful APIs, and apply agile methodologies 
+                    such as Scrum. I also gained hands-on experience in advanced front-end 
+                    projects using HTML, CSS, and frameworks like Bootstrap and Tailwind, along 
+                    with JavaScript and React. Back-end technologies such as Node.js and 
+                    Express.js, databases like MySQL and MongoDB, content management 
+                    systems (WordPress), and programming with Python and Django were also 
+                    covered.
+                </p>
+            </div>
+        </div>
+
+        <div class="education-card">
+            <div>
+                <img src="assets/univap.png" alt="Univap" class="education-icon">
+            </div>
+            <div class="education-content">
+                <h3 class="education-title">Technical High School – IT</h3>
+                <h4 class="education-institution">Colégio UNIVAP – Brazil</h4>
+                <div class="education-period">JAN/2022 – DEC/2024</div>
+                <p class="education-description">
+                    I gained experience in projects involving software development, database 
+                    management, web programming, computer graphics, computer networks, 
+                    and object-oriented programming. 
+                    Additionally, the projects were developed in teams of three, which helped me 
+                    improve not only technical skills but also my ability to propose innovative 
+                    solutions, collaborate effectively, and solve problems. Over the 3-year 
+                    period, I participated in programming competitions and achieved 4th place in 
+                    the INIC. I also presented projects at technical fairs, sharing our work with 
+                    the academic and professional community.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="education-grid">
+        <!-- Certifications & Achievements -->
+        <div class="education-card">
+            <div>
+                <img src="assets/salesforce.png" alt="Salesforce" class="education-icon">
+            </div>
+            <div class="education-content">
+                <h3 class="education-title">Salesforce Certified Platform Foundations</h3>
+                <h4 class="education-institution">Salesforce</h4>
+                <div class="education-period">2024</div>
+                <p class="education-description">
+                    Fundamentals of Salesforce development, CRM customization, Apex and SOQL basics.
+                </p>
+            </div>
+        </div>
+
+        <div class="education-card">
+            <div>
+                <img src="assets/udemy.png" alt="Udemy" class="education-icon">
+            </div>
+            <div class="education-content">
+                <h3 class="education-title">The Complete Salesforce Development Course</h3>
+                <h4 class="education-institution">Udemy</h4>
+                <div class="education-period">2024</div>
+                <p class="education-description">
+                    15+ hands-on projects covering Apex, LWC, SOQL, Governor Limits, and Salesforce architecture.
+                </p>
+            </div>
+        </div>
+
+        <div class="education-card">
+            <div>
+                <img src="assets/univap.png" alt="Univap" class="education-icon">
+            </div>
+            <div class="education-content">
+                <h3 class="education-title">4th Place – INIC UNIVAP</h3>
+                <h4 class="education-institution">Universidade do Vale do Paraíba</h4>
+                <div class="education-period">2024</div>
+                <p class="education-description">
+                    Recognition in scientific initiation for innovative IT project development.
+                </p>
+            </div>
+        </div>
+
+        <div class="education-card">
+            <div>
+                <img src="assets/maratona.png" alt="Univap" class="education-icon">
+            </div>
+            <div class="education-content">
+                <h3 class="education-title">Programming Marathon – Participant</h3>
+                <h4 class="education-institution">Junior Programming Marathon</h4>
+                <div class="education-period">2022/2023/2024</div>
+                <p class="education-description">
+                    Participation in competitive programming marathon applying algorithms and teamwork.
+                </p>
+            </div>
+        </div>
+        <div class="education-card">
+            <div>
+                <img src="assets/univap.png" alt="Univap" class="education-icon">
+            </div>
+            <div class="education-content">
+                <h3 class="education-title">Data Analysis in Excel</h3>
+                <h4 class="education-institution">Independent Certification</h4>
+                <div class="education-period">2023</div>
+                <p class="education-description">
+                    Training focused on data cleaning, pivot tables, formulas, charts, and insights for decision-making using Excel.
+                </p>
+            </div>
+        </div>
+        <div class="education-card">
+            <div>
+                <img src="assets/salesforce2.png" alt="Salesforce" class="education-icon">
+            </div>
+            <div class="education-content">
+                <h3 class="education-title">Trailhead – Salesforce Mountaineer</h3>
+                <h4 class="education-institution">Salesforce Trailhead</h4>
+                <div class="education-period">Ongoing</div>
+                <p class="education-description">
+                    30+ badges earned, 25.000+ points. Focused on Apex, SOQL, Lightning Web Components, and automation.
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="section-header">
+            <h2 class="section-title">FEATURED PROJECTS</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="https://via.placeholder.com/400x250/00ff88/000000?text=PROJETO+1" alt="Projeto 1">
+                    <div class="project-overlay">
+                        <div class="project-links">
+                            <a href="#" class="project-link"><i data-lucide="github"></i></a>
+                            <a href="#" class="project-link"><i data-lucide="external-link"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">E-commerce Platform</h3>
+                    <p class="project-description">
+                        Plataforma completa de e-commerce com sistema de pagamentos, 
+                        gestão de estoque e dashboard administrativo.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">Stripe</span>
+                        <span class="tech-tag">MongoDB</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="https://via.placeholder.com/400x250/00ff88/000000?text=PROJETO+2" alt="Projeto 2">
+                    <div class="project-overlay">
+                        <div class="project-links">
+                            <a href="#" class="project-link"><i data-lucide="github"></i></a>
+                            <a href="#" class="project-link"><i data-lucide="external-link"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Task Management App</h3>
+                    <p class="project-description">
+                        Aplicação de gestão de tarefas com colaboração em tempo real, 
+                        notificações e relatórios avançados.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Vue.js</span>
+                        <span class="tech-tag">Socket.io</span>
+                        <span class="tech-tag">Express</span>
+                        <span class="tech-tag">Redis</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="https://via.placeholder.com/400x250/00ff88/000000?text=PROJETO+3" alt="Projeto 3">
+                    <div class="project-overlay">
+                        <div class="project-links">
+                            <a href="#" class="project-link"><i data-lucide="github"></i></a>
+                            <a href="#" class="project-link"><i data-lucide="external-link"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">AI Chat Assistant</h3>
+                    <p class="project-description">
+                        Assistente de IA integrado com processamento de linguagem natural 
+                        e interface conversacional intuitiva.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">TensorFlow</span>
+                        <span class="tech-tag">FastAPI</span>
+                        <span class="tech-tag">WebSocket</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="section-header">
+            <h2 class="section-title">GET IN TOUCH</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="far fa-envelope"></i>  
+                    </div>
+                    <div class="contact-details">
+                        <h3>Email</h3>
+                        <p>matheusverissimogonzalez@gmail.com</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-location-dot"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Location</h3>
+                        <p>São José dos Campos, Brazil</p>
+                    </div>
+                </div>
+                <div class="social-links">
+                    <a href="https://github.com/MatheusVGonzalez" class="social-link" target="_blank">
+                        <img src="assets/github.png" alt="GitHub" class="social-link">
+                    </a>
+                    <a href="https://www.linkedin.com/in/matheus-vgonzalez/" class="social-link" target="_blank">
+                        <img src="assets/linkedin.png" alt="Linkedin" class="social-link">
+                    </a>
+                    <a href="https://www.instagram.com/matheus.vg_/" class="social-link" target="_blank">
+                        <img src="assets/instagram.png" alt="Instagram" class="social-link">
+                    </a>
+                </div>
+            </div>
+            <form id="contactForm">
+                <div class="form-group">
+                    <input type="text" id="name" name="from_name" required>
+                    <label for="name">Name</label>
+                    <div class="form-line"></div>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" name="reply_to" required>
+                    <label for="email">Email</label>
+                    <div class="form-line"></div>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="subject" name="subject" required>
+                    <label for="subject">Subject</label>
+                    <div class="form-line"></div>
+                </div>
+                <div class="form-group">
+                    <textarea id="message" name="message" required></textarea>
+                    <label for="message">Message</label>
+                    <div class="form-line"></div>
+                </div>
+                <button type="submit" class="btn-submit">
+                    <span>SEND MESSAGE</span>
+                    <i data-lucide="send"></i>
+                </button>
+            </form>
+
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-text">
+                <p>&copy; 2024 Cyber Dev. All rights reserved.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#about">Sobre</a>
+                <a href="#projects">Projetos</a>
+                <a href="#contact">Contato</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
