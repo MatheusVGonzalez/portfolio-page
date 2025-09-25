@@ -1,6 +1,3 @@
-// Extended Projects Page Logic
-
-// Minimal i18n subset reuse (fallback to main site keys if needed)
 const projectsI18n = {
   en: {
     'projects.viewAll': 'VIEW ALL PROJECTS',

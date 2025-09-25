@@ -736,8 +736,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Add skip to content link
     const skipLink = document.createElement('a');
-    skipLink.href = '#home';
-    skipLink.textContent = 'Pular para o conteúdo';
+    skipLink.href = '#home';    
     skipLink.style.cssText = `
         position: absolute;
         top: -40px;
@@ -1081,6 +1080,37 @@ const projectData = {
                 ]
             }
         }
+                , 'inventory-system': {
+                        repo: 'https://github.com/MatheusVGonzalez/inventory-system',
+                        live: '',
+                        tags: ['Python','CLI','File I/O','Persistence'],
+                        en: {
+                                title: 'Inventory Management System',
+                                short: 'Python CLI to add, list, update, remove products and save inventory to file.',
+                                sections: [
+                                    { heading: 'Overview', type: 'p', body: 'Lightweight Python terminal application for managing a simple product inventory stored in memory and persisted to inventory.txt on exit.' },
+                                    { heading: 'Features', type: 'list', items: [ 'Add products (name, category, brand, qty, price)', 'View full inventory listing', 'Update quantity or price', 'Remove products', 'Persist data to text file on exit' ]},
+                                    { heading: 'Project Structure', type: 'pre', code: `inventory_system/\n├── main.py          # Entry point & menu loop\n├── inventory.txt    # Generated on exit (data persistence)\n└── README.md` },
+                                    { heading: 'How to Run', type: 'list', items: [ 'git clone https://github.com/MatheusVGonzalez/inventory-system', 'cd inventory-system', 'python main.py', 'Choose menu options 1-5' ]},
+                                    { heading: 'Example Usage', type: 'pre', code: `1. Add Item\n2. View Inventory\n3. Update Item\n4. Remove Item\n5. Exit\nSelect: 1\nName: Headset\nCategory: Electronics\nBrand: Razer\nQuantity: 2\nPrice: 699.99` },
+                                    { heading: 'Notes', type: 'list', items: [ 'Data in memory until exit', 'Simple text serialization', 'No external dependencies', 'Easy to extend to JSON/SQLite/GUI' ]},
+                                    { heading: 'Future Improvements', type: 'list', items: [ 'JSON or SQLite backend', 'Search & filter by category', 'Unit tests (pytest)', 'CSV export', 'Tkinter or Flask UI' ]}
+                                ]
+                        },
+                        pt: {
+                                title: 'Sistema de Inventário',
+                                short: 'CLI em Python para adicionar, listar, atualizar e remover produtos salvando em arquivo.',
+                                sections: [
+                                    { heading: 'Visão Geral', type: 'p', body: 'Aplicação de terminal em Python para gerenciar um inventário simples. Mantém dados em memória e persiste em inventory.txt ao sair.' },
+                                    { heading: 'Funcionalidades', type: 'list', items: [ 'Adicionar produtos (nome, categoria, marca, qtd, preço)', 'Listar inventário completo', 'Atualizar quantidade ou preço', 'Remover produtos', 'Persistir em arquivo texto ao sair' ]},
+                                    { heading: 'Estrutura do Projeto', type: 'pre', code: `inventory_system/\n├── main.py          # Loop & menu principal\n├── inventory.txt    # Gerado ao sair (persistência)\n└── README.md` },
+                                    { heading: 'Como Executar', type: 'list', items: [ 'git clone https://github.com/MatheusVGonzalez/inventory-system', 'cd inventory-system', 'python main.py', 'Usar opções 1-5' ]},
+                                    { heading: 'Exemplo de Uso', type: 'pre', code: `1. Adicionar Item\n2. Ver Inventário\n3. Atualizar Item\n4. Remover Item\n5. Sair\nSeleção: 1\nNome: Headset\nCategoria: Eletrônicos\nMarca: Razer\nQuantidade: 2\nPreço: 699.99` },
+                                    { heading: 'Notas', type: 'list', items: [ 'Dados em memória até sair', 'Serialização simples em texto', 'Sem dependências externas', 'Fácil evoluir para JSON/SQLite/GUI' ]},
+                                    { heading: 'Melhorias Futuras', type: 'list', items: [ 'Backend JSON ou SQLite', 'Busca & filtro por categoria', 'Testes (pytest)', 'Exportar CSV', 'Interface Tkinter ou Flask' ]}
+                                ]
+                        }
+                }
 };
 
 function openProjectModal(key) {
