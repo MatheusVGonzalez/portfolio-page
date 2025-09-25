@@ -784,6 +784,7 @@ const i18n = {
         'hero.subtitle': 'Transforming ideas into extraordinary digital experiences',
         'hero.cta': 'GET IN TOUCH',
         'hero.download': 'DOWNLOAD CV',
+        'hero.photoAlt': 'Professional profile photo of Matheus Gonzalez',
         'about.title': 'ABOUT ME',
         'about.description': 'Full Stack Web Developer with 1+ year experience in front-end and back-end development, specialized in building scalable applications, API integrations, and modern web solutions. Proficient in React, Node.js, Django, PHP, MySQL, and MongoDB. Additionally, Salesforce Certified with hands-on experience in Apex, SOQL, and LWC, bringing extra expertise in CRM customization and automation.',
         'about.years': 'Years of Experience',
@@ -817,6 +818,7 @@ const i18n = {
         'hero.subtitle': 'Transformando ideias em experiências digitais extraordinárias',
         'hero.cta': 'FALE COMIGO',
         'hero.download': 'BAIXAR CV',
+    'hero.photoAlt': 'Foto profissional de perfil de Matheus Gonzalez',
         'about.title': 'SOBRE MIM',
         'about.description': 'Desenvolvedor Web Full Stack com 1+ ano de experiência em front-end e back-end, especializado em aplicações escaláveis, integrações de APIs e soluções web modernas. Domínio em React, Node.js, Django, PHP, MySQL e MongoDB. Certificação Salesforce com experiência prática em Apex, SOQL e LWC, trazendo expertise em customização e automação de CRM.',
         'about.years': 'Anos de Experiência',
@@ -845,6 +847,13 @@ function applyTranslations(lang) {
         const key = el.getAttribute('data-i18n');
         if (dict[key] !== undefined) {
             el.textContent = dict[key];
+        }
+    });
+    // Alt texts
+    document.querySelectorAll('[data-i18n-alt]').forEach(el => {
+        const key = el.getAttribute('data-i18n-alt');
+        if (dict[key] !== undefined) {
+            el.setAttribute('alt', dict[key]);
         }
     });
 }
@@ -1081,7 +1090,7 @@ const projectData = {
             }
         }
                 , 'inventory-system': {
-                        repo: 'https://github.com/MatheusVGonzalez/inventory-system',
+                        repo: 'https://github.com/MatheusVGonzalez/InventorySysPY',
                         live: '',
                         tags: ['Python','CLI','File I/O','Persistence'],
                         en: {

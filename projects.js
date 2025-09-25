@@ -301,7 +301,7 @@ const projectData = {
     }
   }
   , 'inventory-system': {
-    repo: 'https://github.com/MatheusVGonzalez/inventory-system',
+    repo: 'https://github.com/MatheusVGonzalez/InventorySysPY',
     live: '',
     tags: ['Python','CLI','File I/O','Persistence'],
     en: {
