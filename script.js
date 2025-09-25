@@ -984,6 +984,103 @@ const projectData = {
             ]
         }
     }
+        , 'dog-memory-game': {
+            repo: 'https://github.com/MatheusVGonzalez/js-mini-app-2',
+            live: '',
+            tags: ['HTML','CSS','JavaScript','Canvas','Game'],
+            en: {
+                title: 'Dog Memory Adventure',
+                short: 'Memory card game with a cute dog, lives, levels and animated health progression.',
+                sections: [
+                    { heading: 'Overview', type: 'p', body: 'An interactive memory card game where you match food-themed cards while keeping your dog healthy. Each mistake costs a life; correct matches restore health. Clear all pairs across increasing rounds to guide the dog safely home.' },
+                    { heading: 'Gameplay', type: 'list', items: [ 'Flip two cards to find a matching pair', 'Matched pair: dog heals / gains progress', 'Mismatch: lose a life (dog gets hurt animation)', 'Clear all pairs → next round / level', 'Finish required rounds to win the level' ]},
+                    { heading: 'Difficulty Levels', type: 'list', items: [ 'Easy (⭐): Fewer pairs and 1 round', 'Medium (⭐⭐): More pairs + 2 rounds', 'Hard (⭐⭐⭐): Highest pairs + 3+ rounds' ]},
+                    { heading: 'Life & Progress System', type: 'list', items: [ 'Lives visually represented by dog health animation', 'Hearts / status bar updates on each action', 'Progress bar toward doghouse per completed round', 'Game over if lives reach zero', 'Victory screen when final round cleared' ]},
+                    { heading: 'Tech Stack', type: 'list', items: [ 'HTML structure and semantic containers', 'CSS animations & state styling', 'JavaScript for deck generation & shuffle (Fisher–Yates)', 'Canvas / DOM hybrid for dog sprite + effects', 'Modular state machine (idle, hurt, heal, win, lose)' ]},
+                    { heading: 'Core Shuffle Logic (Snippet)', type: 'pre', code: `function shuffle(deck){\n  for(let i=deck.length-1;i>0;i--){\n    const j=Math.floor(Math.random()*(i+1));\n    [deck[i],deck[j]]=[deck[j],deck[i]];\n  }\n  return deck;\n}` },
+                    { heading: 'Future Improvements', type: 'list', items: [ 'Sound effects & background music toggle', 'Timed challenge mode', 'Persistent high scores (localStorage)', 'Adaptive difficulty (dynamic lives)', 'Mobile haptics feedback' ]}
+                ]
+            },
+            pt: {
+                title: 'Aventura da Memória do Cachorro',
+                short: 'Jogo da memória com um cachorro fofo, vidas, níveis e progressão animada de saúde.',
+                sections: [
+                    { heading: 'Visão Geral', type: 'p', body: 'Um jogo interativo de memória onde você combina cartas de comida mantendo o cachorro saudável. Cada erro custa uma vida; acertos recuperam saúde. Limpe todos os pares em rodadas crescentes para levar o cachorro em segurança para casa.' },
+                    { heading: 'Jogabilidade', type: 'list', items: [ 'Vire duas cartas para achar o par', 'Par correto: cachorro se cura / ganha progresso', 'Erro: perde uma vida (animação de dano)', 'Limpe todos os pares → próxima rodada / nível', 'Complete as rodadas necessárias para vencer' ]},
+                    { heading: 'Níveis de Dificuldade', type: 'list', items: [ 'Fácil (⭐): Menos pares e 1 rodada', 'Médio (⭐⭐): Mais pares + 2 rodadas', 'Difícil (⭐⭐⭐): Mais pares + 3+ rodadas' ]},
+                    { heading: 'Sistema de Vidas & Progresso', type: 'list', items: [ 'Vidas representadas por animação de saúde do cachorro', 'Corações / barra de status atualiza a cada ação', 'Barra de progresso até a casinha por rodada concluída', 'Game over se vidas chegam a zero', 'Tela de vitória no fim da última rodada' ]},
+                    { heading: 'Stack Tecnológico', type: 'list', items: [ 'HTML semântico', 'CSS animações e estados', 'JavaScript para geração e embaralhamento de baralho (Fisher–Yates)', 'Canvas / DOM híbrido para sprite do cachorro + efeitos', 'Máquina de estados modular (idle, hurt, heal, win, lose)' ]},
+                    { heading: 'Lógica de Embaralhar (Trecho)', type: 'pre', code: `function shuffle(deck){\n  for(let i=deck.length-1;i>0;i--){\n    const j=Math.floor(Math.random()*(i+1));\n    [deck[i],deck[j]]=[deck[j],deck[i]];\n  }\n  return deck;\n}` },
+                    { heading: 'Melhorias Futuras', type: 'list', items: [ 'Efeitos sonoros e música de fundo', 'Modo desafio com tempo', 'High scores persistentes (localStorage)', 'Dificuldade adaptativa (vidas dinâmicas)', 'Feedback háptico em mobile' ]}
+                ]
+            }
+        }
+        , 'dream-car-site': {
+            repo: 'https://github.com/MatheusVGonzalez/FinalProject1M',
+            live: '',
+            tags: ['HTML5','CSS3','Responsive','UI/UX'],
+            en: {
+                title: 'Dream Car Website',
+                short: 'Responsive multi-page dream car showcase with customization, gallery, FAQ & contact.',
+                sections: [
+                    { heading: 'About the Project', type: 'p', body: 'A creative responsive site to present and “sell” my dream car. Built to practice semantic HTML, responsive layouts and clean UI patterns.' },
+                    { heading: 'Pages Included', type: 'list', items: [ 'Home (hero, specs, highlights)', 'Customization (configure pseudo purchase)', 'About page', 'Contact & FAQ page', 'Gallery page', '404 error page' ]},
+                    { heading: 'Purpose', type: 'p', body: 'Strengthened front-end fundamentals: advanced selectors, accessibility focus states, responsive breakpoints, animations and Git workflow.' },
+                    { heading: 'Technologies Used', type: 'list', items: [ 'HTML5 semantic structure', 'CSS3 (flexbox & grid)', 'Media queries & responsive typography', 'Accessible nav & focus management', 'Organized file structure & Git versioning' ]},
+                    { heading: 'How to Run', type: 'pre', code: `git clone git@github.com:MatheusVGonzalez/FinalProject1M.git\ncd FinalProject1M\nopen index.html` },
+                    { heading: 'Future Ideas', type: 'list', items: [ 'JS configurator (color / wheels)', 'Dark mode toggle', 'Deploy to GitHub Pages', 'Form validation & backend hook', 'Image optimization & Lighthouse tuning' ]}
+                ]
+            },
+            pt: {
+                title: 'Site Carro dos Sonhos',
+                short: 'Site responsivo multi-páginas do carro dos sonhos com customização, galeria, FAQ e contato.',
+                sections: [
+                    { heading: 'Sobre o Projeto', type: 'p', body: 'Site responsivo criativo para apresentar e “vender” meu carro dos sonhos. Construído para praticar HTML semântico, layouts responsivos e padrões de UI limpos.' },
+                    { heading: 'Páginas Incluídas', type: 'list', items: [ 'Home (hero, specs, destaques)', 'Customização (configuração / pseudo compra)', 'Página Sobre', 'Contato & FAQ', 'Galeria', 'Página 404' ]},
+                    { heading: 'Objetivo', type: 'p', body: 'Reforçar fundamentos de front-end: seletores avançados, acessibilidade (focus), breakpoints responsivos, animações e fluxo com Git.' },
+                    { heading: 'Tecnologias Utilizadas', type: 'list', items: [ 'Estrutura semântica HTML5', 'CSS3 (flexbox & grid)', 'Media queries & tipografia responsiva', 'Navegação acessível & estados de foco', 'Estrutura organizada + versionamento Git' ]},
+                    { heading: 'Como Executar', type: 'pre', code: `git clone git@github.com:MatheusVGonzalez/FinalProject1M.git\ncd FinalProject1M\nabrir index.html` },
+                    { heading: 'Ideias Futuras', type: 'list', items: [ 'Configurador em JS (cor / rodas)', 'Toggle dark mode', 'Publicar no GitHub Pages', 'Validação de formulário & backend', 'Otimização de imagens & Lighthouse' ]}
+                ]
+            }
+        }
+        , 'grocery-store-system': {
+            repo: 'https://github.com/MatheusVGonzalez/grocery-django',
+            live: '',
+            tags: ['Django','Python','SQLite','Bootstrap','RBAC'],
+            en: {
+                title: 'Grocery Store Management',
+                short: 'Django grocery store platform with customer shopping flow and staff product & basket review.',
+                sections: [
+                    { heading: 'Overview', type: 'p', body: 'A role-based Django 5 application separating customer shopping experience from staff administrative control. Customers browse products, build baskets and track purchases; staff manage inventory, review baskets and approve purchases.' },
+                    { heading: 'Customer Features', type: 'list', items: [ 'Registration & authentication', 'Browse product catalog with price & created date', 'Add / remove products from basket', 'Adjust quantities before submission', 'View purchase history (approved baskets)' ]},
+                    { heading: 'Staff Features', type: 'list', items: [ 'Create & edit products (name, price, timestamps)', 'List & filter pending baskets', 'Approve or deny baskets (status workflow)', 'View customers & their purchase history', 'Full administrative oversight' ]},
+                    { heading: 'Technology Stack', type: 'list', items: [ 'Backend: Django 5.2.6 (Python 3.13)', 'DB: SQLite3 (easily swappable)', 'Frontend: HTML + Bootstrap', 'Auth: Django built-in auth system', 'Environment: Virtualenv' ]},
+                    { heading: 'Core Models', type: 'pre', code: `class Product(models.Model):\n    name = models.CharField(max_length=120)\n    price = models.DecimalField(max_digits=10, decimal_places=2)\n    created_at = models.DateTimeField(auto_now_add=True)\n    updated_at = models.DateTimeField(auto_now=True)\n\nclass Basket(models.Model):\n    customer = models.ForeignKey(User, on_delete=models.CASCADE)\n    status = models.CharField(choices=[('pending','Pending'),('approved','Approved'),('denied','Denied')], max_length=20, default='pending')\n    reviewer = models.ForeignKey(User, related_name='reviewed', null=True, blank=True, on_delete=models.SET_NULL)\n    created_at = models.DateTimeField(auto_now_add=True)\n\nclass BasketItem(models.Model):\n    basket = models.ForeignKey(Basket, on_delete=models.CASCADE)\n    product = models.ForeignKey(Product, on_delete=models.CASCADE)\n    quantity = models.PositiveIntegerField(default=1)\n\nclass PurchaseHistory(models.Model):\n    basket = models.OneToOneField(Basket, on_delete=models.CASCADE)\n    purchased_at = models.DateTimeField(auto_now_add=True)` },
+                    { heading: 'Project Structure', type: 'pre', code: `grocery_store/\n├── manage.py\n├── grocery_store/ (settings, urls, wsgi)\n├── store/ (models, views, forms, admin, urls, migrations)\n├── templates/\n│   ├── registration/ (login, register)\n│   ├── customer/\n│   ├── products/\n│   └── staff/\n└── db.sqlite3` },
+                    { heading: 'Installation & Setup', type: 'list', items: [ 'git clone <repo>', 'cd grocery_store', 'python -m venv grocery_store_env', 'Activate virtualenv', 'pip install django==5.2.6 sqlparse asgiref tzdata', 'python manage.py migrate', 'python manage.py createsuperuser (optional)', 'python manage.py runserver' ]},
+                    { heading: 'URL Patterns', type: 'list', items: [ '/', '/register/', '/login/', '/logout/', '/products/', '/products/<id>/', '/add-to-basket/', '/basket/', '/purchase-history/', '/staff/products/add/', '/staff/products/<id>/update/', '/staff/baskets/', '/staff/baskets/<id>/review/', '/staff/customers/', '/staff/customers/<id>/' ]},
+                    { heading: 'Usage Flow', type: 'list', items: [ 'Customer registers & logs in', 'Adds products to basket then submits', 'Staff reviews pending basket', 'If approved → recorded in purchase history', 'Customer can track historical purchases' ]},
+                    { heading: 'Future Improvements', type: 'list', items: [ 'Email notifications on basket approval', 'Pagination & search for products', 'Switch to Postgres for production', 'Docker / docker-compose setup', 'API endpoints (DRF) for SPA or mobile client' ]}
+                ]
+            },
+            pt: {
+                title: 'Gestão de Mercearia',
+                short: 'Plataforma Django com fluxo de compras para clientes e revisão de cestas/produtos pelo staff.',
+                sections: [
+                    { heading: 'Visão Geral', type: 'p', body: 'Aplicação Django 5 com controle de acesso por perfil separando a experiência do cliente da interface administrativa. Clientes navegam produtos, montam cestas e acompanham compras; staff gerencia inventário e aprova cestas.' },
+                    { heading: 'Recursos para Clientes', type: 'list', items: [ 'Registro e autenticação', 'Listagem de produtos com preço e data', 'Adicionar / remover produtos da cesta', 'Ajustar quantidades antes de enviar', 'Histórico de compras aprovadas' ]},
+                    { heading: 'Recursos para Staff', type: 'list', items: [ 'Criar e editar produtos', 'Listar cestas pendentes', 'Aprovar ou negar cestas', 'Visualizar clientes e histórico', 'Supervisão administrativa total' ]},
+                    { heading: 'Stack Tecnológico', type: 'list', items: [ 'Backend: Django 5.2.6 (Python 3.13)', 'Banco: SQLite3', 'Frontend: HTML + Bootstrap', 'Auth: sistema nativo Django', 'Ambiente: Virtualenv' ]},
+                    { heading: 'Modelos Principais', type: 'pre', code: `class Product(models.Model):\n    name = models.CharField(max_length=120)\n    price = models.DecimalField(max_digits=10, decimal_places=2)\n    created_at = models.DateTimeField(auto_now_add=True)\n    updated_at = models.DateTimeField(auto_now=True)\n\nclass Basket(models.Model):\n    customer = models.ForeignKey(User, on_delete=models.CASCADE)\n    status = models.CharField(choices=[('pending','Pending'),('approved','Approved'),('denied','Denied')], max_length=20, default='pending')\n    reviewer = models.ForeignKey(User, related_name='reviewed', null=True, blank=True, on_delete=models.SET_NULL)\n    created_at = models.DateTimeField(auto_now_add=True)\n\nclass BasketItem(models.Model):\n    basket = models.ForeignKey(Basket, on_delete=models.CASCADE)\n    product = models.ForeignKey(Product, on_delete=models.CASCADE)\n    quantity = models.PositiveIntegerField(default=1)\n\nclass PurchaseHistory(models.Model):\n    basket = models.OneToOneField(Basket, on_delete=models.CASCADE)\n    purchased_at = models.DateTimeField(auto_now_add=True)` },
+                    { heading: 'Estrutura do Projeto', type: 'pre', code: `grocery_store/\n├── manage.py\n├── grocery_store/ (settings, urls, wsgi)\n├── store/ (models, views, forms, admin, urls, migrations)\n├── templates/\n│   ├── registration/ (login, register)\n│   ├── customer/\n│   ├── products/\n│   └── staff/\n└── db.sqlite3` },
+                    { heading: 'Instalação & Setup', type: 'list', items: [ 'git clone <repo>', 'cd grocery_store', 'python -m venv grocery_store_env', 'Ativar virtualenv', 'pip install django==5.2.6 sqlparse asgiref tzdata', 'python manage.py migrate', 'python manage.py createsuperuser (opcional)', 'python manage.py runserver' ]},
+                    { heading: 'URLs', type: 'list', items: [ '/', '/register/', '/login/', '/logout/', '/products/', '/products/<id>/', '/add-to-basket/', '/basket/', '/purchase-history/', '/staff/products/add/', '/staff/products/<id>/update/', '/staff/baskets/', '/staff/baskets/<id>/review/', '/staff/customers/', '/staff/customers/<id>/' ]},
+                    { heading: 'Fluxo de Uso', type: 'list', items: [ 'Cliente registra e faz login', 'Adiciona produtos na cesta e envia', 'Staff revisa cestas pendentes', 'Se aprovada → entra no histórico', 'Cliente acompanha compras passadas' ]},
+                    { heading: 'Melhorias Futuras', type: 'list', items: [ 'Emails de aprovação de cesta', 'Paginação e busca de produtos', 'Migrar para Postgres em produção', 'Configuração Docker', 'API (DRF) para SPA ou mobile' ]}
+                ]
+            }
+        }
 };
 
 function openProjectModal(key) {
