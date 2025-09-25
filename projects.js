@@ -116,19 +116,72 @@ const projectData = {
       ]
     }
   },
+  // Expanded detailed data (mirrors main page richness)
   'crypto-dashboard': {
-    repo: 'https://github.com/yourusername/cryptodashboard',
+    repo: 'https://github.com/MatheusVGonzalez/CryptoDashboard',
     live: '',
-    tags: ['React','Node.js','API','Chart.js'],
-    en: { title:'CryptoDashboard', short:'Crypto tracker with auth, charts and news.', sections:[ { heading:'Overview', type:'p', body:'Full-stack app for tracking coins, charts, virtual balance and news aggregation.' } ] },
-    pt: { title:'CryptoDashboard', short:'Rastreamento de criptos com auth, gráficos e notícias.', sections:[ { heading:'Visão Geral', type:'p', body:'Aplicação full-stack para acompanhar moedas, gráficos, saldo virtual e notícias.' } ] }
+    tags: ['React', 'Node.js', 'Express', 'Chart.js', 'API'],
+    en: {
+      title: 'CryptoDashboard',
+      short: 'Full-stack crypto tracking app: real-time prices, charts, news, virtual balance and authentication.',
+      sections: [
+        { heading: 'Overview', type: 'p', body: 'CryptoDashboard is a full-stack cryptocurrency tracking application that lets users register, login, explore 50+ coins, view interactive charts, manage a virtual balance and read live crypto news.' },
+        { heading: 'Tech Stack', type: 'list', items: [ 'Frontend: React, React Router, Axios, Chart.js', 'APIs: CoinGecko (prices), CryptoPanic (news widget)', 'Backend: Node.js, Express', 'Storage: JSON file (users)' ]},
+        { heading: 'Features', type: 'list', items: [ 'Authentication (localStorage persistence)', 'Real-time coin list + search/filter', 'Interactive historical price charts (Chart.js)', 'Virtual balance: simulate adding funds', 'Live news widget integration', 'Typing animation on landing', 'Smart caching to lower API calls' ]},
+        { heading: 'Getting Started', type: 'list', items: [ 'Clone repo', 'Open two terminals', 'Backend: cd backend && npm install && node server.js', 'Frontend: cd frontend && npm install && npm start', 'Open http://localhost:3000' ]},
+        { heading: 'File Structure', type: 'pre', code: `cryptodashboard/\n├── backend/\n│   ├── server.js\n│   └── package.json\n├── frontend/\n│   ├── src/ (components, pages, services)\n│   ├── public/\n│   └── package.json\n└── README.md` },
+        { heading: 'Roadmap', type: 'list', items: [ 'JWT auth instead of localStorage', 'Portfolio allocation charts', 'Watchlist & alerts', 'Deployment (Vercel + Render)' ]}
+      ]
+    },
+    pt: {
+      title: 'CryptoDashboard',
+      short: 'Aplicação full-stack para acompanhar criptos: preços em tempo real, gráficos, notícias, saldo virtual e autenticação.',
+      sections: [
+        { heading: 'Visão Geral', type: 'p', body: 'CryptoDashboard é uma aplicação full-stack que permite usuários registrarem, fazer login, explorar 50+ moedas, ver gráficos interativos, gerenciar um saldo virtual e ler notícias de cripto em tempo real.' },
+        { heading: 'Stack Tecnológico', type: 'list', items: [ 'Frontend: React, React Router, Axios, Chart.js', 'APIs: CoinGecko (preços), CryptoPanic (notícias)', 'Backend: Node.js, Express', 'Storage: arquivo JSON (usuários)' ]},
+        { heading: 'Funcionalidades', type: 'list', items: [ 'Autenticação (persistência via localStorage)', 'Lista de moedas com busca/filtro em tempo real', 'Gráficos históricos (Chart.js)', 'Saldo virtual: simulação de fundos', 'Widget de notícias ao vivo', 'Animação de digitação na home', 'Caching inteligente para reduzir chamadas' ]},
+        { heading: 'Primeiros Passos', type: 'list', items: [ 'Clonar repositório', 'Abrir dois terminais', 'Backend: cd backend && npm install && node server.js', 'Frontend: cd frontend && npm install && npm start', 'Abrir http://localhost:3000' ]},
+        { heading: 'Estrutura de Pastas', type: 'pre', code: `cryptodashboard/\n├── backend/\n│   ├── server.js\n│   └── package.json\n├── frontend/\n│   ├── src/ (componentes, páginas, serviços)\n│   ├── public/\n│   └── package.json\n└── README.md` },
+        { heading: 'Próximos Passos', type: 'list', items: [ 'JWT auth ao invés de localStorage', 'Gráficos de alocação de portfólio', 'Watchlist & alertas', 'Deploy (Vercel + Render)' ]}
+      ]
+    }
   },
   'word-shuffle': {
-    repo: 'https://github.com/yourusername/word-shuffle-salesforce',
+    repo: 'https://github.com/MatheusVGonzalez/Word-Shuffle-Aura-Game',
     live: '',
-    tags: ['Salesforce','Apex','Aura','Events'],
-    en: { title:'Word Shuffle', short:'Salesforce Lightning word puzzle with difficulty modes and history.', sections:[ { heading:'Overview', type:'p', body:'Aura component game embedded in Service App: guess the shuffled word within limited attempts.' } ] },
-    pt: { title:'Word Shuffle', short:'Jogo Lightning com modos e histórico.', sections:[ { heading:'Visão Geral', type:'p', body:'Componente Aura no Service App: descubra a palavra embaralhada em tentativas limitadas.' } ] }
+    tags: ['Salesforce', 'Apex', 'Aura', 'Lightning', 'Events'],
+    en: {
+      title: 'Word Shuffle (Salesforce)',
+      short: 'Interactive word puzzle Lightning component with difficulty modes, Apex logic, event-driven UI, and persistent game history.',
+      sections: [
+        { heading: 'Overview', type: 'p', body: 'Word Shuffle is a Lightning Aura based mini-game embedded in the Salesforce Service App Home Tab. Users receive a shuffled word and must guess the correct one within limited attempts depending on difficulty.' },
+        { heading: 'Where It Runs', type: 'list', items: [ 'Service App → Home Tab (Lightning Experience)', 'Packaged as a Lightning App Builder component', 'Accessible inside Service Console workflow' ]},
+        { heading: 'Game Features', type: 'list', items: [ 'Displays shuffled target word + remaining moves', '3 Difficulty Modes: Easy / Medium / Hard', 'Dynamic shuffle & new game creation', 'Real-time game log (number, mode, date, result)', 'Event-driven updates between nested components', 'Persisted history via custom objects / metadata' ]},
+        { heading: 'Technologies Used', type: 'list', items: [ 'Apex Classes (game engine, word provider, persistence)', 'Lightning Aura Components (UI composition)', 'Component Events (child → parent communication)', 'Lightning App Builder (embedding)', 'Custom Objects / Metadata (history storage)' ]},
+        { heading: 'How to Play', type: 'list', items: [ 'Open Service App → Home Tab', 'Select difficulty mode', 'Click Start New Game', 'Enter guesses until solved or attempts end', 'Track results in right-hand game log' ]},
+        { heading: 'Apex Core Logic (Sample)', type: 'pre', code: `public with sharing class WordShuffleController {\n    @AuraEnabled(cacheable=true)\n    public static String startNewGame(String mode){\n        // Select random word based on mode length/difficulty\n        Game__c g = GameService.newGame(mode);\n        return g.Shuffled_Word__c;\n    }\n    @AuraEnabled\n    public static GameResultDTO submitGuess(Id gameId, String guess){\n        return GameService.processGuess(gameId, guess);\n    }\n}` },
+        { heading: 'Component Structure', type: 'pre', code: `aura/\n├── wordShuffle/\n│   ├── wordShuffle.cmp        # Parent container (mode select + board + history)\n│   ├── wordShuffleController.js\n│   ├── wordShuffleHelper.js\n│   ├── wordShuffle.css\n│   ├── wordShuffleRenderer.js (optional)\n├── guessBoard/                # Input + shuffled word display\n├── gameHistory/               # Right panel history list\n├── difficultySelector/        # Mode buttons (fires events)\n├── events/\n│   ├── ModeChange.evt         # User selected new mode\n│   ├── GameUpdated.evt        # Guess submitted / state change\n` },
+        { heading: 'Data Model', type: 'pre', code: `Custom Object: Game__c\nFields: Mode__c (Picklist), Original_Word__c, Shuffled_Word__c, Attempts_Used__c, Max_Attempts__c, Result__c (Picklist), Started_On__c (DateTime)\n\nCustom Metadata: Word_Set__mdt (Word__c, Difficulty__c)` },
+        { heading: 'Events Flow', type: 'list', items: [ 'difficultySelector fires ModeChange → parent starts game', 'guessBoard submits guess → Apex → returns state', 'Parent fires GameUpdated → history refreshes', 'History component re-queries latest Game__c records' ]},
+        { heading: 'Future Improvements', type: 'list', items: [ 'Convert to LWC for performance', 'Add timer per game', 'Multi-user leaderboard', 'Lightning Message Service for broader context', 'Deploy as unlocked package' ]}
+      ]
+    },
+    pt: {
+      title: 'Word Shuffle (Salesforce)',
+      short: 'Jogo de palavras embaralhadas em Lightning com modos de dificuldade, lógica Apex, eventos e histórico persistente.',
+      sections: [
+        { heading: 'Visão Geral', type: 'p', body: 'Word Shuffle é um mini jogo em Lightning Aura embutido na Home do App de Service no Salesforce. O usuário recebe uma palavra embaralhada e precisa descobrir a correta dentro de tentativas limitadas conforme a dificuldade.' },
+        { heading: 'Onde Roda', type: 'list', items: [ 'Service App → Aba Home (Lightning Experience)', 'Empacotado como componente para Lightning App Builder', 'Acessível dentro do fluxo do Service Console' ]},
+        { heading: 'Recursos do Jogo', type: 'list', items: [ 'Mostra palavra embaralhada + tentativas restantes', '3 Modos: Easy / Medium / Hard', 'Criação dinâmica de novo jogo', 'Log em tempo real (número, modo, data, resultado)', 'Atualizações via eventos entre componentes', 'Histórico persistido (objetos / metadata)' ]},
+        { heading: 'Tecnologias Utilizadas', type: 'list', items: [ 'Classes Apex (engine, provedor de palavras, persistência)', 'Componentes Lightning Aura (UI)', 'Eventos de Componente (comunicação)', 'Lightning App Builder (embed)', 'Objetos / Metadata Personalizados (histórico)' ]},
+        { heading: 'Como Jogar', type: 'list', items: [ 'Abrir Service App → Aba Home', 'Selecionar modo de dificuldade', 'Clicar em Start New Game', 'Digitar palpites até acertar ou acabar tentativas', 'Acompanhar resultados no log à direita' ]},
+        { heading: 'Lógica Apex (Exemplo)', type: 'pre', code: `public with sharing class WordShuffleController {\n    @AuraEnabled(cacheable=true)\n    public static String startNewGame(String mode){\n        // Seleciona palavra aleatória por dificuldade\n        Game__c g = GameService.newGame(mode);\n        return g.Shuffled_Word__c;\n    }\n    @AuraEnabled\n    public static GameResultDTO submitGuess(Id gameId, String guess){\n        return GameService.processGuess(gameId, guess);\n    }\n}` },
+        { heading: 'Estrutura de Componentes', type: 'pre', code: `aura/\n├── wordShuffle/\n│   ├── wordShuffle.cmp        # Contêiner pai (modo + board + histórico)\n│   ├── wordShuffleController.js\n│   ├── wordShuffleHelper.js\n│   ├── wordShuffle.css\n│   ├── wordShuffleRenderer.js (opcional)\n├── guessBoard/                # Entrada + exibição palavra\n├── gameHistory/               # Painel histórico à direita\n├── difficultySelector/        # Botões de modo (dispara eventos)\n├── events/\n│   ├── ModeChange.evt         # Modo selecionado\n│   ├── GameUpdated.evt        # Palpite / mudança estado\n` },
+        { heading: 'Modelo de Dados', type: 'pre', code: `Objeto Personalizado: Game__c\nCampos: Mode__c (Picklist), Original_Word__c, Shuffled_Word__c, Attempts_Used__c, Max_Attempts__c, Result__c (Picklist), Started_On__c (DateTime)\n\nCustom Metadata: Word_Set__mdt (Word__c, Difficulty__c)` },
+        { heading: 'Fluxo de Eventos', type: 'list', items: [ 'difficultySelector dispara ModeChange → pai inicia jogo', 'guessBoard envia palpite → Apex → retorna estado', 'Pai dispara GameUpdated → histórico atualiza', 'Histórico reconsulta registros Game__c recentes' ]},
+        { heading: 'Melhorias Futuras', type: 'list', items: [ 'Migrar para LWC', 'Adicionar timer por jogo', 'Leaderboard multi-usuário', 'Lightning Message Service para contexto amplo', 'Deploy como pacote unlocked' ]}
+      ]
+    }
   }
 };
 
@@ -173,7 +226,7 @@ function filteredProjects(filter){
 
 function createProjectCard(p, lang){
   const card = document.createElement('div');
-  card.className = 'project-card large';
+  card.className = 'project-card large generated';
   card.setAttribute('data-project', p.key);
   card.innerHTML = `
     <div class="project-image">
@@ -296,9 +349,13 @@ function switchLang(lang){
   window.history.replaceState({}, '', newUrl);
   document.documentElement.lang = lang === 'pt' ? 'pt-BR':'en';
   applyProjectsTranslations(lang);
-  // re-render projects to update descriptions
-  renderProjects(document.querySelector('.filter-btn.active')?.dataset.filter || 'all');
-  // If modal is open, refresh its content
+  const staticMode = document.querySelectorAll('#allProjectsGrid .project-card').length > 0 && !document.querySelector('#allProjectsGrid .project-card.generated');
+  if (staticMode){
+    updateStaticCardsLanguage(lang);
+  } else {
+    renderProjects(document.querySelector('.filter-btn.active')?.dataset.filter || 'all');
+  }
+  // Refresh modal content if open
   const modal = document.getElementById('project-modal');
   if (modal && modal.classList.contains('active')) {
     const currentKey = modal.getAttribute('data-current-project');
@@ -346,6 +403,21 @@ function closeProjectModal(){
   modal.classList.remove('active');
   modal.setAttribute('aria-hidden','true');
   document.body.style.overflow='';
+}
+
+// Update static cards language (title + short description) without re-rendering DOM
+function updateStaticCardsLanguage(lang){
+  document.querySelectorAll('#allProjectsGrid .project-card').forEach(card => {
+    const key = card.getAttribute('data-project');
+    if (!key || !projectData[key]) return;
+    const data = projectData[key][lang];
+    if (data){
+      const titleEl = card.querySelector('.project-title');
+      const descEl = card.querySelector('.project-description');
+      if (titleEl) titleEl.textContent = data.title;
+      if (descEl) descEl.textContent = data.short;
+    }
+  });
 }
 
 document.addEventListener('DOMContentLoaded', initExtendedProjects);
