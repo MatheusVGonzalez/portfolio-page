@@ -62,9 +62,102 @@
     </header>
 
     <section id="all-projects" class="all-projects">
-      <div class="all-projects-grid" id="allProjectsGrid"></div>
+      <div class="all-projects-grid" id="allProjectsGrid">
+        <!-- Static project cards replicating index format; edit mp4/img/text freely -->
+        <div class="project-card" data-project="car-deals-cms">
+          <div class="project-image">
+            <img src="assets/projeto1.png" alt="Car Deals CMS">
+            <video class="project-video" src="assets/projeto1.mp4" playsinline muted></video>
+            <div class="project-overlay">
+              <div class="project-links">
+                <a href="https://github.com/MatheusVGonzalez/Car-Deals-" target="_blank" class="project-link"><i data-lucide="github"></i></a>
+                <a href="#" class="project-link"><i data-lucide="external-link"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">Car Deals-CMS</h3>
+            <p class="project-description">
+              CarDeals CMS is a content management system for car dealerships built with PHP and MySQL. It lets administrators manage cars and users while customers browse and purchase vehicles through a simple responsive interface.
+            </p>
+            <div class="project-tech">
+              <span class="tech-tag">PHP</span>
+              <span class="tech-tag">MYSQL</span>
+              <span class="tech-tag">Apache</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card" data-project="crypto-dashboard">
+          <div class="project-image">
+            <img src="assets/projeto2.png" alt="CryptoDashboard">
+            <video class="project-video" src="assets/projeto2.mp4" playsinline muted></video>
+            <div class="project-overlay">
+              <div class="project-links">
+                <a href="https://github.com/MatheusVGonzalez/CryptoDashboard" target="_blank" class="project-link"><i data-lucide="github"></i></a>
+                <a href="#" class="project-link"><i data-lucide="external-link"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">CryptoDashboard</h3>
+            <p class="project-description">
+              CryptoDashboard is a full-stack cryptocurrency tracking application that lets users register, login, explore 50+ coins, view interactive charts, manage a virtual balance and read live crypto news.
+            </p>
+            <div class="project-tech">
+              <span class="tech-tag">React</span>
+              <span class="tech-tag">Node.js</span>
+              <span class="tech-tag">Express</span>
+              <span class="tech-tag">Chart.js</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card" data-project="word-shuffle">
+          <div class="project-image">
+            <img src="assets/projeto3.png" alt="Word Shuffle">
+            <video class="project-video" src="assets/projeto3.mp4" playsinline muted></video>
+            <div class="project-overlay">
+              <div class="project-links">
+                <a href="https://github.com/MatheusVGonzalez/Word-Shuffle-Aura-Game" target="_blank" class="project-link"><i data-lucide="github"></i></a>
+                <a href="#" class="project-link"><i data-lucide="external-link"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">Word Shuffle (Salesforce)</h3>
+            <p class="project-description">
+              Word Shuffle is a Lightning Aura based mini-game embedded in the Salesforce Service App Home Tab. Users receive a shuffled word and must guess the correct one within limited attempts depending on difficulty.
+            </p>
+            <div class="project-tech">
+              <span class="tech-tag">Salesforce</span>
+              <span class="tech-tag">Apex</span>
+              <span class="tech-tag">Aura Lightning</span>
+              <span class="tech-tag">Events</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
+
+  <!-- Project Details Modal (extended page) -->
+  <div id="project-modal" class="project-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="project-modal-backdrop" data-close></div>
+    <div class="project-modal-dialog" role="document">
+      <button class="project-modal-close" aria-label="Close" data-close>&times;</button>
+      <div class="project-modal-header">
+        <h2 class="project-modal-title">Title</h2>
+        <p class="project-modal-description">Short description</p>
+        <div class="project-modal-tags"></div>
+      </div>
+      <div class="project-modal-body">
+        <div class="project-modal-sections"></div>
+      </div>
+      <div class="project-modal-footer">
+        <a target="_blank" rel="noopener" href="#" class="project-modal-link repo">Source</a>
+        <a target="_blank" rel="noopener" href="#" class="project-modal-link live">Live Demo</a>
+      </div>
+    </div>
+  </div>
 
   <footer class="footer">
     <div class="footer-content">

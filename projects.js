@@ -5,6 +5,8 @@ const projectsI18n = {
   en: {
     'projects.viewAll': 'VIEW ALL PROJECTS',
     'projects.extendedSubtitle': 'Explore a broader collection of experiments, full-stack builds, study projects and prototypes.',
+    'projects.source': 'Source (GitHub)',
+    'projects.live': 'Live Demo',
     'filter.all': 'All',
     'filter.fullstack': 'Full Stack',
     'filter.frontend': 'Frontend',
@@ -15,6 +17,8 @@ const projectsI18n = {
   pt: {
     'projects.viewAll': 'VER TODOS OS PROJETOS',
     'projects.extendedSubtitle': 'Explore uma coleção maior de experimentos, builds full-stack, projetos de estudo e protótipos.',
+    'projects.source': 'Código (GitHub)',
+    'projects.live': 'Demo Ao Vivo',
     'filter.all': 'Todos',
     'filter.fullstack': 'Full Stack',
     'filter.frontend': 'Frontend',
@@ -89,6 +93,45 @@ const allProjects = [
   }
 ];
 
+// Detailed project data (mirrors main page). Add more as needed.
+const projectData = {
+  'car-deals-cms': {
+    repo: 'https://github.com/MatheusVGonzalez/Car-Deals-',
+    live: '',
+    tags: ['PHP','MySQL','MVC','Security'],
+    en: {
+      title: 'CarDeals CMS',
+      short: 'Secure CMS with role-based access, car inventory CRUD, purchase flow and auditing.',
+      sections: [
+        { heading: 'Overview', type: 'p', body: 'A lightweight PHP/MySQL CMS for dealerships enabling user roles, car inventory management and tracked purchase requests.' },
+        { heading: 'Features', type: 'list', items: ['Role-based access','Password hashing','Car CRUD + uploads','Purchase flow','Audit log','Prepared statements','Responsive UI']}
+      ]
+    },
+    pt: {
+      title: 'CarDeals CMS',
+      short: 'CMS seguro com papéis, CRUD de carros, fluxo de compra e auditoria.',
+      sections: [
+        { heading: 'Visão Geral', type: 'p', body: 'Sistema PHP/MySQL para concessionárias com papéis de usuário, gestão de carros e controle de ações.' },
+        { heading: 'Funcionalidades', type: 'list', items: ['Acesso por papéis','Hash de senhas','CRUD de carros + upload','Fluxo de compra','Log de auditoria','Prepared statements','Interface responsiva']}
+      ]
+    }
+  },
+  'crypto-dashboard': {
+    repo: 'https://github.com/yourusername/cryptodashboard',
+    live: '',
+    tags: ['React','Node.js','API','Chart.js'],
+    en: { title:'CryptoDashboard', short:'Crypto tracker with auth, charts and news.', sections:[ { heading:'Overview', type:'p', body:'Full-stack app for tracking coins, charts, virtual balance and news aggregation.' } ] },
+    pt: { title:'CryptoDashboard', short:'Rastreamento de criptos com auth, gráficos e notícias.', sections:[ { heading:'Visão Geral', type:'p', body:'Aplicação full-stack para acompanhar moedas, gráficos, saldo virtual e notícias.' } ] }
+  },
+  'word-shuffle': {
+    repo: 'https://github.com/yourusername/word-shuffle-salesforce',
+    live: '',
+    tags: ['Salesforce','Apex','Aura','Events'],
+    en: { title:'Word Shuffle', short:'Salesforce Lightning word puzzle with difficulty modes and history.', sections:[ { heading:'Overview', type:'p', body:'Aura component game embedded in Service App: guess the shuffled word within limited attempts.' } ] },
+    pt: { title:'Word Shuffle', short:'Jogo Lightning com modos e histórico.', sections:[ { heading:'Visão Geral', type:'p', body:'Componente Aura no Service App: descubra a palavra embaralhada em tentativas limitadas.' } ] }
+  }
+};
+
 const filtersOrder = ['filter.all','filter.fullstack','filter.frontend','filter.backend','filter.salesforce','filter.experiments'];
 
 function getLang(){
@@ -135,7 +178,7 @@ function createProjectCard(p, lang){
   card.innerHTML = `
     <div class="project-image">
       <img src="${p.img}" alt="${p.title}" loading="lazy" />
-      ${p.video ? `<video class='project-video' muted preload='metadata' src='${p.video}'></video>`: ''}
+      ${p.video ? `<video class='project-video' muted playsinline preload='auto' src='${p.video}'></video>`: ''}
       <div class="project-overlay">
         <div class="project-content">
           <h3 class="project-title">${p.title}</h3>
@@ -170,8 +213,7 @@ function createProjectCard(p, lang){
     });
   }
   card.addEventListener('click', () => {
-    // Navigate back to main page with hash & query to open modal? Could implement later.
-    window.location.href = `index.html#projects`;
+    openProjectModal(p.key);
   });
   return card;
 }
@@ -187,19 +229,64 @@ function renderProjects(filter){
 function initExtendedProjects(){
   const lang = getLang();
   applyProjectsTranslations(lang);
-  buildFilters(lang);
-  renderProjects('all');
-  document.getElementById('yearSpan').textContent = new Date().getFullYear();
-  document.getElementById('projectsFilters').addEventListener('click', (e) => {
-    const btn = e.target.closest('.filter-btn');
-    if (!btn) return;
-    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    renderProjects(btn.dataset.filter);
-  });
+  // If static cards exist (matching index format) we skip dynamic rendering
+  const staticCards = document.querySelectorAll('#allProjectsGrid .project-card');
+  if (staticCards.length > 0){
+    // Attach hover video behavior similar to index (play on hover, pause on leave)
+    staticCards.forEach(card => {
+      const video = card.querySelector('video.project-video');
+      if (video){
+        video.muted = true; // ensure autoplay allowed
+        card.addEventListener('mouseenter', ()=>{ 
+          try { 
+            card.classList.add('previewing');
+            video.currentTime = 0; 
+              video.style.display = 'block';
+            const p = video.play(); 
+            if (p) p.catch(()=>{ /* ignore */ }); 
+          } catch(e){} 
+        });
+        card.addEventListener('mouseleave', ()=>{ 
+          try { 
+            video.pause(); 
+            video.currentTime = 0; 
+              video.style.display = 'none';
+            card.classList.remove('previewing');
+          } catch(e){} 
+        });
+      }
+      // Modal open on click (ignore direct link clicks)
+      card.addEventListener('click', (e)=>{
+        if (e.target.closest('a')) return; // allow link navigation
+        const key = card.getAttribute('data-project');
+        if (key) openProjectModal(key);
+      });
+    });
+    // Hide filters toolbar since not needed in static mode
+    const filtersBar = document.getElementById('projectsFilters');
+    if (filtersBar) filtersBar.style.display = 'none';
+  } else {
+    // Fallback dynamic rendering (if user removes static markup)
+    buildFilters(lang);
+    renderProjects('all');
+    // Attach filter click handler only in dynamic mode
+    document.getElementById('projectsFilters').addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      renderProjects(btn.dataset.filter);
+    });
+  }
+  const yearEl = document.getElementById('yearSpan');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
   // Language buttons
   document.getElementById('lang-pt').addEventListener('click', ()=>switchLang('pt'));
   document.getElementById('lang-en').addEventListener('click', ()=>switchLang('en'));
+
+  // Close handlers
+  document.addEventListener('click', (e)=>{ if(e.target.matches('[data-close]')) closeProjectModal(); });
+  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeProjectModal(); });
 }
 
 function switchLang(lang){
@@ -211,6 +298,54 @@ function switchLang(lang){
   applyProjectsTranslations(lang);
   // re-render projects to update descriptions
   renderProjects(document.querySelector('.filter-btn.active')?.dataset.filter || 'all');
+  // If modal is open, refresh its content
+  const modal = document.getElementById('project-modal');
+  if (modal && modal.classList.contains('active')) {
+    const currentKey = modal.getAttribute('data-current-project');
+    if (currentKey) openProjectModal(currentKey);
+  }
+}
+
+// Modal logic (similar to index)
+function openProjectModal(key){
+  const modal = document.getElementById('project-modal');
+  if (!modal || !projectData[key]) return;
+  const lang = getLang();
+  const data = projectData[key][lang];
+  modal.setAttribute('data-current-project', key);
+  modal.querySelector('.project-modal-title').textContent = data.title;
+  modal.querySelector('.project-modal-description').textContent = data.short;
+  const tagsEl = modal.querySelector('.project-modal-tags');
+  tagsEl.innerHTML='';
+  projectData[key].tags.forEach(t=>{ const span=document.createElement('span'); span.className='tech-tag'; span.textContent=t; tagsEl.appendChild(span); });
+  const sectionsEl = modal.querySelector('.project-modal-sections');
+  sectionsEl.innerHTML='';
+  data.sections.forEach(sec => {
+    const wrap = document.createElement('div'); wrap.className='project-modal-section';
+    const h = document.createElement('h4'); h.textContent = sec.heading; wrap.appendChild(h);
+    if (sec.type==='p'){ const p=document.createElement('p'); p.textContent=sec.body; wrap.appendChild(p);} else if(sec.type==='list'){ const ul=document.createElement('ul'); sec.items.forEach(i=>{ const li=document.createElement('li'); li.textContent=i; ul.appendChild(li); }); wrap.appendChild(ul);} else if(sec.type==='pre'){ const pre=document.createElement('pre'); pre.textContent=sec.code; wrap.appendChild(pre);} 
+    sectionsEl.appendChild(wrap);
+  });
+  const repoLink = modal.querySelector('.project-modal-link.repo');
+  repoLink.textContent = projectsI18n[lang]['projects.source'];
+  repoLink.href = projectData[key].repo || '#';
+  const liveLink = modal.querySelector('.project-modal-link.live');
+  if (projectData[key].live){
+    liveLink.style.display='';
+    liveLink.textContent = projectsI18n[lang]['projects.live'];
+    liveLink.href = projectData[key].live;
+  } else { liveLink.style.display='none'; }
+  modal.classList.add('active');
+  modal.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+}
+
+function closeProjectModal(){
+  const modal = document.getElementById('project-modal');
+  if(!modal) return;
+  modal.classList.remove('active');
+  modal.setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
 }
 
 document.addEventListener('DOMContentLoaded', initExtendedProjects);
