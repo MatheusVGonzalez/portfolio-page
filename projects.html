@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projetos | Matheus Gonzalez</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+  <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+  <script type="module">
+    import * as lucide from 'https://unpkg.com/lucide@latest/dist/esm/lucide.js';
+    window.lucide = lucide;
+  </script>
+  <style>
+    .projects-extended-header { text-align:center; margin-top:120px; }
+    .projects-extended-header h1 { font-family:'Orbitron',sans-serif; font-size:46px; letter-spacing:.08em; background:var(--gradient-primary); -webkit-background-clip:text; background-clip:text; color:transparent; margin-bottom:12px; }
+    .projects-extended-header p { color:var(--text-gray); max-width:760px; margin:0 auto 40px; font-size:18px; line-height:1.5; }
+    .all-projects-grid { display:grid; gap:34px; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); padding:20px 0 80px; }
+    .project-card.large { min-height:360px; }
+    .projects-toolbar { display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-bottom:28px; }
+    .filter-btn { background:var(--glass); color:var(--text-light); border:1px solid var(--glass-border); padding:10px 18px; border-radius:30px; font-size:13px; letter-spacing:.08em; cursor:pointer; transition:.25s; position:relative; overflow:hidden; }
+    .filter-btn.active, .filter-btn:hover { background:var(--primary-color); color:#000; box-shadow:0 0 16px var(--primary-color); }
+    .back-home-link { position:fixed; top:14px; left:14px; z-index:5000; text-decoration:none; font-size:13px; letter-spacing:.1em; padding:10px 16px; background:var(--glass); border:1px solid var(--glass-border); border-radius:10px; color:var(--primary-color); font-weight:600; }
+    .back-home-link:hover { background:var(--primary-color); color:#000; }
+  </style>
+</head>
+<body>
+  <a href="index.html#projects" class="back-home-link">⟵ HOME</a>
+  <nav class="navbar" style="backdrop-filter: blur(6px); background:rgba(0,0,0,0.4);">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <span class="logo-text">Matheus Gonzalez</span>
+        <div class="logo-dot"></div>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="index.html#home" class="nav-link" data-i18n="nav.home">Home</a></li>
+        <li><a href="index.html#about" class="nav-link" data-i18n="nav.about">About</a></li>
+        <li><a href="index.html#experience" class="nav-link" data-i18n="nav.experience">Experiences</a></li>
+        <li><a href="index.html#skills" class="nav-link" data-i18n="nav.skills">Skills</a></li>
+        <li><a href="projects.html" class="nav-link active" data-i18n="nav.projects">Projects</a></li>
+        <li><a href="index.html#contact" class="nav-link" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+      <div class="nav-lang">
+        <button id="lang-pt" aria-label="Português" class="lang-btn">🇧🇷</button>
+        <button id="lang-en" aria-label="English" class="lang-btn">🇺🇸</button>
+      </div>
+      <div class="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" style="max-width:1280px; margin:0 auto; padding:0 40px;">
+    <header class="projects-extended-header">
+      <h1 data-i18n="projects.viewAll">VIEW ALL PROJECTS</h1>
+      <p data-i18n="projects.extendedSubtitle">Explore a broader collection of experiments, full-stack builds, study projects and prototypes.</p>
+      <div class="projects-toolbar" id="projectsFilters">
+        <!-- Filters inserted dynamically -->
+      </div>
+    </header>
+
+    <section id="all-projects" class="all-projects">
+      <div class="all-projects-grid" id="allProjectsGrid"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-text">&copy; <span id="yearSpan"></span> Matheus Gonzalez.</div>
+    </div>
+  </footer>
+
+  <script src="projects.js"></script>
+</body>
+</html>

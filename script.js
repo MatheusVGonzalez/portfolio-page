@@ -159,9 +159,23 @@ function animateNumbers() {
 function animateSkillBars() {
     const skillBars = document.querySelectorAll('.skill-bar');
     skillBars.forEach(bar => {
+        // Avoid re-animating on repeated intersections
+        if (bar.dataset.animated === 'true') return;
+
         const progress = bar.querySelector('.skill-progress');
-        const percentLabel = bar.querySelector('.skill-percent');
-        const percent = parseInt(progress.getAttribute('data-percent'));
+        if (!progress) return;
+
+        let percentLabel = bar.querySelector('.skill-percent');
+        if (!percentLabel) {
+            percentLabel = document.createElement('span');
+            percentLabel.className = 'skill-percent';
+            percentLabel.textContent = '0%';
+            bar.appendChild(percentLabel);
+        }
+
+        const target = parseInt(progress.getAttribute('data-percent'));
+        const percent = isNaN(target) ? 0 : Math.max(0, Math.min(100, target));
+
         let current = 0;
         progress.style.width = '0%';
         percentLabel.textContent = '0%';
@@ -175,6 +189,7 @@ function animateSkillBars() {
                 clearInterval(interval);
                 progress.style.width = percent + '%';
                 percentLabel.textContent = percent + '%';
+                bar.dataset.animated = 'true';
             }
         }, 12); // velocidade da animação
     });
@@ -223,6 +238,7 @@ function typeWriter(element, text, speed = 100) {
 // Initialize typing effect
 function initTypingEffect() {
     const titleName = document.querySelector('.title-name');
+    if (!titleName) return;
     const originalText = titleName.textContent;
     
     // Wait for loading screen to finish
@@ -414,6 +430,36 @@ document.addEventListener('DOMContentLoaded', () => {
             window.addEventListener('keydown', onKey);
         }
     } catch (e) {}
+
+    // Subtle 3D tilt interactions
+    const tiltify = (el, strength = 12) => {
+        const rect = el.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const onMove = (e) => {
+            const dx = (e.clientX - cx) / rect.width;
+            const dy = (e.clientY - cy) / rect.height;
+            el.style.transform = `rotateX(${(-dy * strength).toFixed(2)}deg) rotateY(${(dx * strength).toFixed(2)}deg)`;
+        };
+        const onLeave = () => {
+            el.style.transform = 'rotateX(0deg) rotateY(0deg)';
+        };
+        el.addEventListener('mousemove', onMove);
+        el.addEventListener('mouseleave', onLeave);
+    };
+    // Only apply tilt to profile (disable on project cards to keep preview readable)
+    const profile = document.querySelector('.profile-container');
+    if (profile) tiltify(profile, 8);
+
+    // Floating contact action button
+    if (!document.querySelector('.contact-fab')) {
+        const fab = document.createElement('button');
+        fab.className = 'contact-fab';
+        fab.innerHTML = '<i class="fas fa-paper-plane"></i>';
+        fab.title = 'Contact';
+        fab.addEventListener('click', () => scrollToSection('contact'));
+        document.body.appendChild(fab);
+    }
 });
 
 // Cursor trail effect
@@ -503,6 +549,43 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 ripple.remove();
             }, 600);
+        });
+    });
+
+    // Project video hover previews
+    document.querySelectorAll('.project-card').forEach(card => {
+        const img = card.querySelector('.project-image img');
+        const video = card.querySelector('.project-video');
+        if (!video) return;
+
+        // Ensure video is muted for autoplay policies
+        video.muted = true;
+        video.loop = true;
+
+        // Log video source for debugging
+        console.log(`Video source for card: ${video.src}`);
+
+        // Add error listener to detect loading issues
+        video.addEventListener('error', () => {
+            console.error(`Error loading video: ${video.src}`);
+        });
+
+        // Hover behaviors
+        card.addEventListener('mouseenter', () => {
+            card.classList.add('previewing');
+            video.style.display = 'block';
+            const playPromise = video.play();
+            if (playPromise && playPromise.catch) {
+                playPromise.catch((error) => {
+                    console.error(`Autoplay error for video: ${video.src}`, error);
+                });
+            }
+        });
+        card.addEventListener('mouseleave', () => {
+            video.pause();
+            video.currentTime = 0;
+            video.style.display = 'none';
+            card.classList.remove('previewing');
         });
     });
 });
@@ -680,33 +763,309 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.getElementById('lang-pt').addEventListener('click', () => {
-    window.location.search = '?lang=pt';
+    setLanguage('pt');
 });
 document.getElementById('lang-en').addEventListener('click', () => {
-    window.location.search = '?lang=en';
+    setLanguage('en');
 });
 
-// Exemplo simples de tradução (você pode expandir com um objeto de traduções)
+// i18n translations
+const i18n = {
+    en: {
+        'overlay.enter': 'Enter',
+        'nav.home': 'Home',
+        'nav.about': 'About',
+        'nav.experience': 'Experiences',
+        'nav.skills': 'Skills',
+        'nav.projects': 'Projects',
+        'nav.contact': 'Contact',
+        'hero.hello': "HELLO, I'M",
+        'hero.name': 'DEVELOPER',
+        'hero.role': 'FULL-STACK DEVELOPER',
+        'hero.subtitle': 'Transforming ideas into extraordinary digital experiences',
+        'hero.cta': 'GET IN TOUCH',
+        'hero.download': 'DOWNLOAD CV',
+        'about.title': 'ABOUT ME',
+        'about.description': 'Full Stack Web Developer with 1+ year experience in front-end and back-end development, specialized in building scalable applications, API integrations, and modern web solutions. Proficient in React, Node.js, Django, PHP, MySQL, and MongoDB. Additionally, Salesforce Certified with hands-on experience in Apex, SOQL, and LWC, bringing extra expertise in CRM customization and automation.',
+        'about.years': 'Years of Experience',
+        'about.projects': 'Completed Projects',
+        'about.techs': 'Technologies Mastered',
+        'exp.title': 'PROFESSIONAL EXPERIENCE',
+        'skills.title': 'TECHNICAL SKILLS',
+        'edu.title': 'EDUCATION & CERTIFICATIONS',
+        'projects.title': 'FEATURED PROJECTS',
+    'projects.viewAll': 'VIEW ALL PROJECTS',
+        'contact.title': 'GET IN TOUCH',
+        'contact.email': 'Email',
+        'contact.location': 'Location',
+        'form.name': 'Name',
+        'form.email': 'Email',
+        'form.subject': 'Subject',
+        'form.message': 'Message',
+        'form.send': 'SEND MESSAGE',
+    },
+    pt: {
+        'overlay.enter': 'Entrar',
+        'nav.home': 'Início',
+        'nav.about': 'Sobre',
+        'nav.experience': 'Experiências',
+        'nav.skills': 'Habilidades',
+        'nav.projects': 'Projetos',
+        'nav.contact': 'Contato',
+        'hero.hello': 'OLÁ, EU SOU',
+        'hero.name': 'DESENVOLVEDOR',
+        'hero.role': 'DESENVOLVEDOR FULL-STACK',
+        'hero.subtitle': 'Transformando ideias em experiências digitais extraordinárias',
+        'hero.cta': 'FALE COMIGO',
+        'hero.download': 'BAIXAR CV',
+        'about.title': 'SOBRE MIM',
+        'about.description': 'Desenvolvedor Web Full Stack com 1+ ano de experiência em front-end e back-end, especializado em aplicações escaláveis, integrações de APIs e soluções web modernas. Domínio em React, Node.js, Django, PHP, MySQL e MongoDB. Certificação Salesforce com experiência prática em Apex, SOQL e LWC, trazendo expertise em customização e automação de CRM.',
+        'about.years': 'Anos de Experiência',
+        'about.projects': 'Projetos Concluídos',
+        'about.techs': 'Tecnologias Dominadas',
+        'exp.title': 'EXPERIÊNCIA PROFISSIONAL',
+        'skills.title': 'HABILIDADES TÉCNICAS',
+        'edu.title': 'EDUCAÇÃO & CERTIFICAÇÕES',
+        'projects.title': 'PROJETOS EM DESTAQUE',
+    'projects.viewAll': 'VER TODOS OS PROJETOS',
+        'contact.title': 'ENTRE EM CONTATO',
+        'contact.email': 'Email',
+        'contact.location': 'Localização',
+        'form.name': 'Nome',
+        'form.email': 'Email',
+        'form.subject': 'Assunto',
+        'form.message': 'Mensagem',
+        'form.send': 'ENVIAR MENSAGEM',
+    }
+};
+
+function applyTranslations(lang) {
+    const dict = i18n[lang] || i18n.pt;
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key] !== undefined) {
+            el.textContent = dict[key];
+        }
+    });
+}
+
+function setLanguage(lang) {
+    // Update URL param without reload
+    const url = new URL(window.location.href);
+    url.searchParams.set('lang', lang);
+    window.history.replaceState({}, '', url);
+    applyTranslations(lang);
+}
+
+// Apply on load
 document.addEventListener('DOMContentLoaded', () => {
     const params = new URLSearchParams(window.location.search);
-    const lang = params.get('lang') || 'pt';
-    if (lang === 'en') {
-        document.querySelector('.logo-text').textContent = 'Matheus Gonzalez';
-        document.querySelector('.nav-link[href="#home"]').textContent = 'Home';
-        document.querySelector('.nav-link[href="#about"]').textContent = 'About';
-        document.querySelector('.nav-link[href="#experience"]').textContent = 'Experiences';
-        document.querySelector('.nav-link[href="#skills"]').textContent = 'Skills';
-        document.querySelector('.nav-link[href="#projects"]').textContent = 'Projects';
-        document.querySelector('.nav-link[href="#contact"]').textContent = 'Contact';
-        // Adicione outras traduções conforme necessário...
-    } else {
-        document.querySelector('.logo-text').textContent = 'Matheus Gonzalez';
-        document.querySelector('.nav-link[href="#home"]').textContent = 'Início';
-        document.querySelector('.nav-link[href="#about"]').textContent = 'Sobre';
-        document.querySelector('.nav-link[href="#experience"]').textContent = 'Experiência';
-        document.querySelector('.nav-link[href="#skills"]').textContent = 'Habilidades';
-        document.querySelector('.nav-link[href="#projects"]').textContent = 'Projetos';
-        document.querySelector('.nav-link[href="#contact"]').textContent = 'Contato';
-        // Adicione outras traduções conforme necessário...
+    const lang = params.get('lang') || 'en';
+    applyTranslations(lang);
+});
+
+// Project modal data + logic
+const projectData = {
+  'car-deals-cms': {
+    repo: 'https://github.com/MatheusVGonzalez/Car-Deals-',
+    live: '',
+    tags: ['PHP', 'MySQL', 'MVC', 'Security'],
+    en: {
+      title: 'CarDeals CMS',
+      short: 'A secure CMS for car dealerships with role-based access, car inventory CRUD, purchase flow and audit logging.',
+      sections: [
+        { heading: 'Overview', type: 'p', body: 'CarDeals CMS is a content management system for car dealerships built with vanilla PHP and MySQL. It lets administrators manage cars and users while customers browse and purchase vehicles through a simple responsive interface.' },
+        { heading: 'Features', type: 'list', items: [
+          'User Authentication with password hashing',
+          'Role-Based Access (Admin, Editor, Viewer)',
+          'Car Management CRUD with image uploads',
+          'Purchase flow with pre-filled user data',
+          'Audit Logging of critical actions',
+          'Friendly Error Handling + logging',
+          'Security: input sanitization & prepared statements',
+          'Responsive, minimal UI'
+        ]},
+        { heading: 'Folder Structure', type: 'pre', code: `Car-Deals-/\n├── classes/         # Core PHP classes (Car, User, Audit, Database)\n├── config.php       # App configuration\n├── public/          # Public HTTP root\n│   ├── CRUDCars/    # Car CRUD operations\n│   ├── CRUDUsers/   # User CRUD operations\n│   ├── css/         # Styles\n│   ├── uploads/     # Uploaded car images\n│   ├── dashboard.php\n│   ├── index.php\n│   ├── login.php\n│   ├── logout.php\n│   ├── register.php\n├── README.md        # Documentation` },
+        { heading: 'Requirements', type: 'list', items: [ 'PHP 7.4+', 'MySQL 5.7+', 'Apache/Nginx', 'Writable public/uploads folder' ]},
+        { heading: 'Setup', type: 'list', items: [ 'Clone repository to server', 'Create MySQL database named cms', 'Configure credentials in config.php', 'Ensure public/uploads is writable', 'Register first user via /register.php' ]},
+        { heading: 'Usage', type: 'list', items: [ 'Register & login', 'Admins: manage users & cars', 'Editors: add/edit cars', 'Viewers: browse & purchase', 'All actions logged (audit)' ]},
+        { heading: 'Security', type: 'list', items: [ 'Password hashing', 'Prepared statements', 'Input sanitization', 'Role-based access control' ]},
+        { heading: 'SQL Schema', type: 'pre', code: `CREATE TABLE users (\n  id INT AUTO_INCREMENT PRIMARY KEY,\n  name VARCHAR(255) NOT NULL,\n  email VARCHAR(255) UNIQUE NOT NULL,\n  password VARCHAR(255) NOT NULL,\n  role ENUM('admin','editor','viewer') NOT NULL,\n  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);\n\nCREATE TABLE cars (\n  id INT AUTO_INCREMENT PRIMARY KEY,\n  brand VARCHAR(255) NOT NULL,\n  model VARCHAR(255) NOT NULL,\n  year YEAR NOT NULL,\n  price DECIMAL(10,2) NOT NULL,\n  mileage INT,\n  description TEXT,\n  image VARCHAR(255),\n  status ENUM('Available','Sold','Reserved'),\n  created_by INT,\n  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n  FOREIGN KEY (created_by) REFERENCES users(id)\n);\n\nCREATE TABLE audit_logs (\n  id INT AUTO_INCREMENT PRIMARY KEY,\n  user_id INT,\n  action VARCHAR(255),\n  entity VARCHAR(255),\n  entity_id INT,\n  details TEXT,\n  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE\n);` }
+      ]
+    },
+    pt: {
+      title: 'CarDeals CMS',
+      short: 'CMS seguro para concessionárias com acesso baseado em papéis, CRUD de carros, fluxo de compra e auditoria.',
+      sections: [
+        { heading: 'Visão Geral', type: 'p', body: 'CarDeals CMS é um sistema de gestão para concessionárias feito em PHP puro e MySQL. Permite administradores gerenciar carros e usuários enquanto clientes navegam e compram veículos em uma interface simples e responsiva.' },
+        { heading: 'Funcionalidades', type: 'list', items: [
+          'Autenticação com hash de senhas',
+          'Controle de Acesso por Papel (Admin, Editor, Viewer)',
+          'CRUD de Carros com upload de imagens',
+          'Fluxo de Compra com dados do usuário pré-preenchidos',
+          'Registro (Audit) de ações críticas',
+          'Tratamento de Erros amigável + logs',
+          'Segurança: sanitização e prepared statements',
+          'Interface responsiva e simples'
+        ]},
+        { heading: 'Estrutura de Pastas', type: 'pre', code: `Car-Deals-/\n├── classes/         # Classes principais (Car, User, Audit, Database)\n├── config.php       # Configuração\n├── public/          # Raiz pública\n│   ├── CRUDCars/    # CRUD de carros\n│   ├── CRUDUsers/   # CRUD de usuários\n│   ├── css/         # Estilos\n│   ├── uploads/     # Imagens dos carros\n│   ├── dashboard.php\n│   ├── index.php\n│   ├── login.php\n│   ├── logout.php\n│   ├── register.php\n├── README.md        # Documentação` },
+        { heading: 'Requisitos', type: 'list', items: [ 'PHP 7.4+', 'MySQL 5.7+', 'Apache/Nginx', 'Pasta public/uploads gravável' ]},
+        { heading: 'Setup', type: 'list', items: [ 'Clonar o repositório', 'Criar banco cms', 'Configurar credenciais em config.php', 'Garantir permissão de escrita em uploads', 'Registrar primeiro usuário em /register.php' ]},
+        { heading: 'Uso', type: 'list', items: [ 'Registrar e fazer login', 'Admins: gerenciam usuários e carros', 'Editores: adicionam/ editam carros', 'Visitantes: navegam e compram', 'Todas ações auditadas' ]},
+        { heading: 'Segurança', type: 'list', items: [ 'Hash de senhas', 'Prepared statements', 'Sanitização de entrada', 'Controle de acesso por papéis' ]},
+        { heading: 'SQL', type: 'pre', code: `CREATE TABLE users (\n  id INT AUTO_INCREMENT PRIMARY KEY,\n  name VARCHAR(255) NOT NULL,\n  email VARCHAR(255) UNIQUE NOT NULL,\n  password VARCHAR(255) NOT NULL,\n  role ENUM('admin','editor','viewer') NOT NULL,\n  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);\n\nCREATE TABLE cars (\n  id INT AUTO_INCREMENT PRIMARY KEY,\n  brand VARCHAR(255) NOT NULL,\n  model VARCHAR(255) NOT NULL,\n  year YEAR NOT NULL,\n  price DECIMAL(10,2) NOT NULL,\n  mileage INT,\n  description TEXT,\n  image VARCHAR(255),\n  status ENUM('Available','Sold','Reserved'),\n  created_by INT,\n  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n  FOREIGN KEY (created_by) REFERENCES users(id)\n);\n\nCREATE TABLE audit_logs (\n  id INT AUTO_INCREMENT PRIMARY KEY,\n  user_id INT,\n  action VARCHAR(255),\n  entity VARCHAR(255),\n  entity_id INT,\n  details TEXT,\n  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE\n);` }
+      ]
     }
+  },
+  'crypto-dashboard': {
+    repo: 'https://github.com/MatheusVGonzalez/CryptoDashboard',
+    live: '',
+    tags: ['React', 'Node.js', 'Express', 'Chart.js', 'API'],
+    en: {
+      title: 'CryptoDashboard',
+      short: 'Full-stack crypto tracking app: real-time prices, charts, news, virtual balance and authentication.',
+      sections: [
+        { heading: 'Overview', type: 'p', body: 'CryptoDashboard is a full-stack cryptocurrency tracking application that lets users register, login, explore 50+ coins, view interactive charts, manage a virtual balance and read live crypto news.' },
+        { heading: 'Tech Stack', type: 'list', items: [ 'Frontend: React, React Router, Axios, Chart.js', 'APIs: CoinGecko (prices), CryptoPanic (news widget)', 'Backend: Node.js, Express', 'Storage: JSON file (users)' ]},
+        { heading: 'Features', type: 'list', items: [ 'Authentication (localStorage persistence)', 'Real-time coin list + search/filter', 'Interactive historical price charts (Chart.js)', 'Virtual balance: simulate adding funds', 'Live news widget integration', 'Typing animation on landing', 'Smart caching to lower API calls' ]},
+        { heading: 'Getting Started', type: 'list', items: [ 'Clone repo', 'Open two terminals', 'Backend: cd backend && npm install && node server.js', 'Frontend: cd frontend && npm install && npm start', 'Open http://localhost:3000' ]},
+        { heading: 'File Structure', type: 'pre', code: `cryptodashboard/\n├── backend/\n│   ├── server.js\n│   └── package.json\n├── frontend/\n│   ├── src/ (components, pages, services)\n│   ├── public/\n│   └── package.json\n└── README.md` },
+        { heading: 'Roadmap', type: 'list', items: [ 'JWT auth instead of localStorage', 'Portfolio allocation charts', 'Watchlist & alerts', 'Deployment (Vercel + Render)' ]}
+      ]
+    },
+    pt: {
+      title: 'CryptoDashboard',
+      short: 'Aplicação full-stack para acompanhar criptos: preços em tempo real, gráficos, notícias, saldo virtual e autenticação.',
+      sections: [
+        { heading: 'Visão Geral', type: 'p', body: 'CryptoDashboard é uma aplicação full-stack que permite usuários registrarem, fazer login, explorar 50+ moedas, ver gráficos interativos, gerenciar um saldo virtual e ler notícias de cripto em tempo real.' },
+        { heading: 'Stack Tecnológico', type: 'list', items: [ 'Frontend: React, React Router, Axios, Chart.js', 'APIs: CoinGecko (preços), CryptoPanic (notícias)', 'Backend: Node.js, Express', 'Storage: arquivo JSON (usuários)' ]},
+        { heading: 'Funcionalidades', type: 'list', items: [ 'Autenticação (persistência via localStorage)', 'Lista de moedas com busca/filtro em tempo real', 'Gráficos históricos (Chart.js)', 'Saldo virtual: simulação de fundos', 'Widget de notícias ao vivo', 'Animação de digitação na home', 'Caching inteligente para reduzir chamadas' ]},
+        { heading: 'Primeiros Passos', type: 'list', items: [ 'Clonar repositório', 'Abrir dois terminais', 'Backend: cd backend && npm install && node server.js', 'Frontend: cd frontend && npm install && npm start', 'Abrir http://localhost:3000' ]},
+        { heading: 'Estrutura de Pastas', type: 'pre', code: `cryptodashboard/\n├── backend/\n│   ├── server.js\n│   └── package.json\n├── frontend/\n│   ├── src/ (componentes, páginas, serviços)\n│   ├── public/\n│   └── package.json\n└── README.md` },
+        { heading: 'Próximos Passos', type: 'list', items: [ 'JWT auth ao invés de localStorage', 'Gráficos de alocação de portfólio', 'Watchlist & alertas', 'Deploy (Vercel + Render)' ]}
+      ]
+    }
+  }
+    , 'word-shuffle': {
+        repo: 'https://github.com/MatheusVGonzalez/Word-Shuffle-Aura-Game',
+        live: '',
+        tags: ['Salesforce', 'Apex', 'Aura', 'Lightning', 'Events'],
+        en: {
+            title: 'Word Shuffle (Salesforce)',
+            short: 'Interactive word puzzle Lightning component with difficulty modes, Apex logic, event-driven UI, and persistent game history.',
+            sections: [
+                { heading: 'Overview', type: 'p', body: 'Word Shuffle is a Lightning Aura based mini-game embedded in the Salesforce Service App Home Tab. Users receive a shuffled word and must guess the correct one within limited attempts depending on difficulty.' },
+                { heading: 'Where It Runs', type: 'list', items: [ 'Service App → Home Tab (Lightning Experience)', 'Packaged as a Lightning App Builder component', 'Accessible inside Service Console workflow' ]},
+                { heading: 'Game Features', type: 'list', items: [ 'Displays shuffled target word + remaining moves', '3 Difficulty Modes: Easy / Medium / Hard', 'Dynamic shuffle & new game creation', 'Real-time game log (number, mode, date, result)', 'Event-driven updates between nested components', 'Persisted history via custom objects / metadata' ]},
+                { heading: 'Technologies Used', type: 'list', items: [ 'Apex Classes (game engine, word provider, persistence)', 'Lightning Aura Components (UI composition)', 'Component Events (child → parent communication)', 'Lightning App Builder (embedding)', 'Custom Objects / Metadata (history storage)' ]},
+                { heading: 'How to Play', type: 'list', items: [ 'Open Service App → Home Tab', 'Select difficulty mode', 'Click Start New Game', 'Enter guesses until solved or attempts end', 'Track results in right-hand game log' ]},
+                { heading: 'Apex Core Logic (Sample)', type: 'pre', code: `public with sharing class WordShuffleController {\n    @AuraEnabled(cacheable=true)\n    public static String startNewGame(String mode){\n        // Select random word based on mode length/difficulty\n        Game__c g = GameService.newGame(mode);\n        return g.Shuffled_Word__c;\n    }\n    @AuraEnabled\n    public static GameResultDTO submitGuess(Id gameId, String guess){\n        return GameService.processGuess(gameId, guess);\n    }\n}` },
+                { heading: 'Component Structure', type: 'pre', code: `aura/\n├── wordShuffle/\n│   ├── wordShuffle.cmp        # Parent container (mode select + board + history)\n│   ├── wordShuffleController.js\n│   ├── wordShuffleHelper.js\n│   ├── wordShuffle.css\n│   ├── wordShuffleRenderer.js (optional)\n├── guessBoard/                # Input + shuffled word display\n├── gameHistory/               # Right panel history list\n├── difficultySelector/        # Mode buttons (fires events)\n├── events/\n│   ├── ModeChange.evt         # User selected new mode\n│   ├── GameUpdated.evt        # Guess submitted / state change\n` },
+                { heading: 'Data Model', type: 'pre', code: `Custom Object: Game__c\nFields: Mode__c (Picklist), Original_Word__c, Shuffled_Word__c, Attempts_Used__c, Max_Attempts__c, Result__c (Picklist), Started_On__c (DateTime)\n\nCustom Metadata: Word_Set__mdt (Word__c, Difficulty__c)` },
+                { heading: 'Events Flow', type: 'list', items: [ 'difficultySelector fires ModeChange → parent starts game', 'guessBoard submits guess → Apex → returns state', 'Parent fires GameUpdated → history refreshes', 'History component re-queries latest Game__c records' ]},
+                { heading: 'Future Improvements', type: 'list', items: [ 'Convert to LWC for performance', 'Add timer per game', 'Multi-user leaderboard', 'Lightning Message Service for broader context', 'Deploy as unlocked package' ]}
+            ]
+        },
+        pt: {
+            title: 'Word Shuffle (Salesforce)',
+            short: 'Jogo de palavras embaralhadas em Lightning com modos de dificuldade, lógica Apex, eventos e histórico persistente.',
+            sections: [
+                { heading: 'Visão Geral', type: 'p', body: 'Word Shuffle é um mini jogo em Lightning Aura embutido na Home do App de Service no Salesforce. O usuário recebe uma palavra embaralhada e precisa descobrir a correta dentro de tentativas limitadas conforme a dificuldade.' },
+                { heading: 'Onde Roda', type: 'list', items: [ 'Service App → Aba Home (Lightning Experience)', 'Empacotado como componente para Lightning App Builder', 'Acessível dentro do fluxo do Service Console' ]},
+                { heading: 'Recursos do Jogo', type: 'list', items: [ 'Mostra palavra embaralhada + tentativas restantes', '3 Modos: Easy / Medium / Hard', 'Criação dinâmica de novo jogo', 'Log em tempo real (número, modo, data, resultado)', 'Atualizações via eventos entre componentes', 'Histórico persistido (objetos / metadata)' ]},
+                { heading: 'Tecnologias Utilizadas', type: 'list', items: [ 'Classes Apex (engine, provedor de palavras, persistência)', 'Componentes Lightning Aura (UI)', 'Eventos de Componente (comunicação)', 'Lightning App Builder (embed)', 'Objetos / Metadata Personalizados (histórico)' ]},
+                { heading: 'Como Jogar', type: 'list', items: [ 'Abrir Service App → Aba Home', 'Selecionar modo de dificuldade', 'Clicar em Start New Game', 'Digitar palpites até acertar ou acabar tentativas', 'Acompanhar resultados no log à direita' ]},
+                { heading: 'Lógica Apex (Exemplo)', type: 'pre', code: `public with sharing class WordShuffleController {\n    @AuraEnabled(cacheable=true)\n    public static String startNewGame(String mode){\n        // Seleciona palavra aleatória por dificuldade\n        Game__c g = GameService.newGame(mode);\n        return g.Shuffled_Word__c;\n    }\n    @AuraEnabled\n    public static GameResultDTO submitGuess(Id gameId, String guess){\n        return GameService.processGuess(gameId, guess);\n    }\n}` },
+                { heading: 'Estrutura de Componentes', type: 'pre', code: `aura/\n├── wordShuffle/\n│   ├── wordShuffle.cmp        # Contêiner pai (modo + board + histórico)\n│   ├── wordShuffleController.js\n│   ├── wordShuffleHelper.js\n│   ├── wordShuffle.css\n│   ├── wordShuffleRenderer.js (opcional)\n├── guessBoard/                # Entrada + exibição palavra\n├── gameHistory/               # Painel histórico à direita\n├── difficultySelector/        # Botões de modo (dispara eventos)\n├── events/\n│   ├── ModeChange.evt         # Modo selecionado\n│   ├── GameUpdated.evt        # Palpite / mudança estado\n` },
+                { heading: 'Modelo de Dados', type: 'pre', code: `Objeto Personalizado: Game__c\nCampos: Mode__c (Picklist), Original_Word__c, Shuffled_Word__c, Attempts_Used__c, Max_Attempts__c, Result__c (Picklist), Started_On__c (DateTime)\n\nCustom Metadata: Word_Set__mdt (Word__c, Difficulty__c)` },
+                { heading: 'Fluxo de Eventos', type: 'list', items: [ 'difficultySelector dispara ModeChange → pai inicia jogo', 'guessBoard envia palpite → Apex → retorna estado', 'Pai dispara GameUpdated → histórico atualiza', 'Histórico reconsulta registros Game__c recentes' ]},
+                { heading: 'Melhorias Futuras', type: 'list', items: [ 'Migrar para LWC', 'Adicionar timer por jogo', 'Leaderboard multi-usuário', 'Lightning Message Service para contexto amplo', 'Deploy como pacote unlocked' ]}
+            ]
+        }
+    }
+};
+
+function openProjectModal(key) {
+  const modal = document.getElementById('project-modal');
+  if (!modal || !projectData[key]) return;
+  const lang = document.documentElement.lang.startsWith('pt') ? 'pt' : 'en';
+  const data = projectData[key][lang];
+  modal.querySelector('.project-modal-title').textContent = data.title;
+  modal.querySelector('.project-modal-description').textContent = data.short;
+  const tagsEl = modal.querySelector('.project-modal-tags');
+  tagsEl.innerHTML = '';
+  projectData[key].tags.forEach(t => {
+    const span = document.createElement('span');
+    span.className = 'tech-tag';
+    span.textContent = t;
+    tagsEl.appendChild(span);
+  });
+  const sectionsEl = modal.querySelector('.project-modal-sections');
+  sectionsEl.innerHTML = '';
+  data.sections.forEach(sec => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'project-modal-section';
+    const h = document.createElement('h4');
+    h.textContent = sec.heading;
+    wrapper.appendChild(h);
+    if (sec.type === 'p') {
+      const p = document.createElement('p');
+      p.textContent = sec.body;
+      wrapper.appendChild(p);
+    } else if (sec.type === 'list') {
+      const ul = document.createElement('ul');
+      sec.items.forEach(item => { const li = document.createElement('li'); li.textContent = item; ul.appendChild(li); });
+      wrapper.appendChild(ul);
+    } else if (sec.type === 'pre') {
+      const pre = document.createElement('pre');
+      pre.textContent = sec.code;
+      wrapper.appendChild(pre);
+    }
+    sectionsEl.appendChild(wrapper);
+  });
+  const repoLink = modal.querySelector('.project-modal-link.repo');
+  repoLink.textContent = lang === 'pt' ? 'Código (GitHub)' : 'Source (GitHub)';
+  repoLink.href = projectData[key].repo || '#';
+  const liveLink = modal.querySelector('.project-modal-link.live');
+  if (projectData[key].live) {
+    liveLink.style.display = '';
+    liveLink.textContent = lang === 'pt' ? 'Demo Ao Vivo' : 'Live Demo';
+    liveLink.href = projectData[key].live;
+  } else {
+    liveLink.style.display = 'none';
+  }
+  modal.classList.add('active');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProjectModal() {
+  const modal = document.getElementById('project-modal');
+  if (!modal) return;
+  modal.classList.remove('active');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('click', (e) => {
+  if (e.target.matches('[data-close]')) { closeProjectModal(); }
+});
+
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeProjectModal(); });
+
+// Attach project card click
+window.addEventListener('DOMContentLoaded', () => {
+  const cards = document.querySelectorAll('.project-card');
+  if (cards[0] && !cards[0].getAttribute('data-project')) cards[0].setAttribute('data-project', 'car-deals-cms');
+  if (cards[1]) cards[1].setAttribute('data-project', 'crypto-dashboard');
+    if (cards[2]) cards[2].setAttribute('data-project', 'word-shuffle');
+  cards.forEach(card => {
+    card.addEventListener('click', (evt) => {
+      // Prevent triggering when clicking links
+      if (evt.target.closest('a')) return;
+      const key = card.getAttribute('data-project');
+      if (key) openProjectModal(key);
+    });
+  });
 });

@@ -40,7 +40,7 @@
                 </div>
                 <div class="laptop-shadow"></div>
             </div>
-            <div class="enter-hint">Enter</div>
+            <div class="enter-hint" data-i18n="overlay.enter">Enter</div>
         </div>
     </div>
 
@@ -74,12 +74,12 @@
                 <div class="logo-dot"></div>
             </div>
             <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#experience" class="nav-link">Experiences</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="#home" class="nav-link" data-i18n="nav.home">Home</a></li>
+                <li><a href="#about" class="nav-link" data-i18n="nav.about">About</a></li>
+                <li><a href="#experience" class="nav-link" data-i18n="nav.experience">Experiences</a></li>
+                <li><a href="#skills" class="nav-link" data-i18n="nav.skills">Skills</a></li>
+                <li><a href="#projects" class="nav-link" data-i18n="nav.projects">Projects</a></li>
+                <li><a href="#contact" class="nav-link" data-i18n="nav.contact">Contact</a></li>
             </ul>
             <div class="nav-lang">
                 <button id="lang-pt" aria-label="Português" class="lang-btn">🇧🇷</button>
@@ -102,18 +102,18 @@
         <div class="hero-content">
             <div class="hero-text">
                 <h1 class="hero-title">
-                    <span class="title-line">HELLO, I'M</span>
-                    <span class="title-name">DEVELOPER</span>
-                    <span class="title-role">FULL-STACK DEVELOPER</span>
+                    <span class="title-line" data-i18n="hero.hello">HELLO, I'M</span>
+                    <span class="title-name" data-i18n="hero.name">DEVELOPER</span>
+                    <span class="title-role" data-i18n="hero.role">FULL-STACK DEVELOPER</span>
                 </h1>
-                <p class="hero-subtitle">Transforming ideas into extraordinary digital experiences</p>
+                <p class="hero-subtitle" data-i18n="hero.subtitle">Transforming ideas into extraordinary digital experiences</p>
                 <div class="hero-buttons">
                     <button class="btn-primary" onclick="scrollToSection('contact')">
-                        <span>GET IN TOUCH</span>
+                        <span data-i18n="hero.cta">GET IN TOUCH</span>
                         <i data-lucide="arrow-right"></i>
                     </button>
                     <button class="btn-secondary" onclick="downloadResume()">
-                        <span>DOWNLOAD CV</span>
+                        <span data-i18n="hero.download">DOWNLOAD CV</span>
                         <i data-lucide="download"></i>
                     </button>
                 </div>
@@ -141,26 +141,26 @@
     <!-- About Section -->
     <section id="about" class="about">
         <div class="section-header">
-            <h2 class="section-title">ABOUT ME</h2>
+            <h2 class="section-title" data-i18n="about.title">ABOUT ME</h2>
             <div class="section-line"></div>
         </div>
         <div class="about-content">
             <div class="about-text">
-                <p class="about-description">
+                <p class="about-description" data-i18n="about.description">
                     Full Stack Web Developer with 1+ year experience in front-end and back-end development, specialized in building scalable applications, API integrations, and modern web solutions. Proficient in React, Node.js, Django, PHP, MySQL, and MongoDB. Additionally, Salesforce Certified with hands-on experience in Apex, SOQL, and LWC, bringing extra expertise in CRM customization and automation.
                 </p>
                 <div class="about-stats">
                     <div class="stat-item">
                         <div class="stat-number" data-target="5">1+</div>
-                        <div class="stat-label">Years of Experience</div>
+                        <div class="stat-label" data-i18n="about.years">Years of Experience</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-number" data-target="50">20+</div>
-                        <div class="stat-label">Completed Projects</div>
+                        <div class="stat-label" data-i18n="about.projects">Completed Projects</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-number" data-target="20">15+</div>
-                        <div class="stat-label">Technologies Mastered</div>
+                        <div class="stat-label" data-i18n="about.techs">Technologies Mastered</div>
                     </div>
                 </div>
             </div>
@@ -180,7 +180,7 @@
     <!-- Experience Section -->
     <section id="experience" class="experience">
         <div class="section-header">
-            <h2 class="section-title">PROFESSIONAL EXPERIENCE</h2>
+            <h2 class="section-title" data-i18n="exp.title">PROFESSIONAL EXPERIENCE</h2>
             <div class="section-line"></div>
         </div>
         <div class="timeline">
@@ -226,7 +226,7 @@
     <!-- Skills Section -->
     <section id="skills" class="skills">
         <div class="section-header">
-            <h2 class="section-title">TECHNICAL SKILLS</h2>
+            <h2 class="section-title" data-i18n="skills.title">TECHNICAL SKILLS</h2>
             <div class="section-line"></div>
         </div>
         <div class="skills-container">
@@ -341,7 +341,7 @@
     <!-- Education Section -->
 <section id="education" class="education">
     <div class="section-header">
-        <h2 class="section-title">EDUCATION & CERTIFICATIONS</h2>
+    <h2 class="section-title" data-i18n="edu.title">EDUCATION & CERTIFICATIONS</h2>
         <div class="section-line"></div>
     </div>
 
@@ -483,13 +483,17 @@
     <!-- Projects Section -->
     <section id="projects" class="projects">
         <div class="section-header">
-            <h2 class="section-title">FEATURED PROJECTS</h2>
+            <h2 class="section-title" data-i18n="projects.title">FEATURED PROJECTS</h2>
             <div class="section-line"></div>
+            <div class="section-actions" style="margin-top:16px; text-align:right; width:100%;">
+                <a href="projects.html" class="btn-secondary" data-i18n="projects.viewAll" style="display:inline-block; font-size:14px; letter-spacing:0.08em;">VIEW ALL PROJECTS</a>
+            </div>
         </div>
         <div class="projects-grid">
             <div class="project-card">
                 <div class="project-image">
-                    <img src="https://via.placeholder.com/400x250/00ff88/000000?text=PROJETO+1" alt="Projeto 1">
+                    <img src="assets/projeto1.png" alt="Projeto 1">
+                    <video class="project-video" src="assets/projeto1.mp4" playsinline></video>
                     <div class="project-overlay">
                         <div class="project-links">
                             <a href="#" class="project-link"><i data-lucide="github"></i></a>
@@ -498,46 +502,45 @@
                     </div>
                 </div>
                 <div class="project-content">
-                    <h3 class="project-title">E-commerce Platform</h3>
+                    <h3 class="project-title">Car Deals-CMS</h3>
                     <p class="project-description">
-                        Plataforma completa de e-commerce com sistema de pagamentos, 
-                        gestão de estoque e dashboard administrativo.
+                        CarDeals CMS is a content management system for car dealerships built with PHP and MySQL. It lets administrators manage cars and users while customers browse and purchase vehicles through a simple responsive interface.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">PHP</span>
+                        <span class="tech-tag">MYSQL</span>
+                        <span class="tech-tag">Apache</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="assets/projeto2.png" alt="Projeto 2">
+                    <video class="project-video" src="assets/projeto2.mp4" playsinline></video>
+                    <div class="project-overlay">
+                        <div class="project-links">
+                            <a href="#" class="project-link"><i data-lucide="github"></i></a>
+                            <a href="#" class="project-link"><i data-lucide="external-link"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">CryptoDashboard</h3>
+                    <p class="project-description">
+                        CryptoDashboard is a full-stack cryptocurrency tracking application that lets users register, login, explore 50+ coins, view interactive charts, manage a virtual balance and read live crypto news.
                     </p>
                     <div class="project-tech">
                         <span class="tech-tag">React</span>
                         <span class="tech-tag">Node.js</span>
-                        <span class="tech-tag">Stripe</span>
-                        <span class="tech-tag">MongoDB</span>
-                    </div>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-image">
-                    <img src="https://via.placeholder.com/400x250/00ff88/000000?text=PROJETO+2" alt="Projeto 2">
-                    <div class="project-overlay">
-                        <div class="project-links">
-                            <a href="#" class="project-link"><i data-lucide="github"></i></a>
-                            <a href="#" class="project-link"><i data-lucide="external-link"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-content">
-                    <h3 class="project-title">Task Management App</h3>
-                    <p class="project-description">
-                        Aplicação de gestão de tarefas com colaboração em tempo real, 
-                        notificações e relatórios avançados.
-                    </p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Vue.js</span>
-                        <span class="tech-tag">Socket.io</span>
                         <span class="tech-tag">Express</span>
-                        <span class="tech-tag">Redis</span>
+                        <span class="tech-tag">Chart.js</span>
                     </div>
                 </div>
             </div>
             <div class="project-card">
                 <div class="project-image">
-                    <img src="https://via.placeholder.com/400x250/00ff88/000000?text=PROJETO+3" alt="Projeto 3">
+                    <img src="assets/projeto3.png" alt="Projeto 3">
+                    <video class="project-video" src="assets/projeto3.mp4" playsinline></video>
                     <div class="project-overlay">
                         <div class="project-links">
                             <a href="#" class="project-link"><i data-lucide="github"></i></a>
@@ -546,26 +549,45 @@
                     </div>
                 </div>
                 <div class="project-content">
-                    <h3 class="project-title">AI Chat Assistant</h3>
+                    <h3 class="project-title">Word Shuffle (Salesforce)</h3>
                     <p class="project-description">
-                        Assistente de IA integrado com processamento de linguagem natural 
-                        e interface conversacional intuitiva.
+                        Word Shuffle is a Lightning Aura based mini-game embedded in the Salesforce Service App Home Tab. Users receive a shuffled word and must guess the correct one within limited attempts depending on difficulty.
                     </p>
                     <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">TensorFlow</span>
-                        <span class="tech-tag">FastAPI</span>
-                        <span class="tech-tag">WebSocket</span>
+                        <span class="tech-tag">Salesforce</span>
+                        <span class="tech-tag">Apex</span>
+                        <span class="tech-tag">Aura Lightning</span>
+                        <span class="tech-tag">Events</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Project Details Modal -->
+    <div id="project-modal" class="project-modal" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="project-modal-backdrop" data-close></div>
+        <div class="project-modal-dialog" role="document">
+            <button class="project-modal-close" aria-label="Close" data-close>&times;</button>
+            <div class="project-modal-header">
+                <h3 class="project-modal-title"></h3>
+                <div class="project-modal-tags"></div>
+            </div>
+            <div class="project-modal-body">
+                <p class="project-modal-description"></p>
+                <div class="project-modal-sections"></div>
+            </div>
+            <div class="project-modal-footer">
+                <a class="project-modal-link repo" target="_blank" rel="noopener"></a>
+                <a class="project-modal-link live" target="_blank" rel="noopener"></a>
+            </div>
+        </div>
+    </div>
+
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="section-header">
-            <h2 class="section-title">GET IN TOUCH</h2>
+            <h2 class="section-title" data-i18n="contact.title">GET IN TOUCH</h2>
             <div class="section-line"></div>
         </div>
         <div class="contact-container">
@@ -575,7 +597,7 @@
                         <i class="far fa-envelope"></i>  
                     </div>
                     <div class="contact-details">
-                        <h3>Email</h3>
+                        <h3 data-i18n="contact.email">Email</h3>
                         <p>matheusverissimogonzalez@gmail.com</p>
                     </div>
                 </div>
@@ -584,7 +606,7 @@
                         <i class="fas fa-location-dot"></i>
                     </div>
                     <div class="contact-details">
-                        <h3>Location</h3>
+                        <h3 data-i18n="contact.location">Location</h3>
                         <p>São José dos Campos, Brazil</p>
                     </div>
                 </div>
@@ -603,26 +625,26 @@
             <form id="contactForm">
                 <div class="form-group">
                     <input type="text" id="name" name="from_name" required>
-                    <label for="name">Name</label>
+                    <label for="name" data-i18n="form.name">Name</label>
                     <div class="form-line"></div>
                 </div>
                 <div class="form-group">
                     <input type="email" id="email" name="reply_to" required>
-                    <label for="email">Email</label>
+                    <label for="email" data-i18n="form.email">Email</label>
                     <div class="form-line"></div>
                 </div>
                 <div class="form-group">
                     <input type="text" id="subject" name="subject" required>
-                    <label for="subject">Subject</label>
+                    <label for="subject" data-i18n="form.subject">Subject</label>
                     <div class="form-line"></div>
                 </div>
                 <div class="form-group">
                     <textarea id="message" name="message" required></textarea>
-                    <label for="message">Message</label>
+                    <label for="message" data-i18n="form.message">Message</label>
                     <div class="form-line"></div>
                 </div>
                 <button type="submit" class="btn-submit">
-                    <span>SEND MESSAGE</span>
+                    <span data-i18n="form.send">SEND MESSAGE</span>
                     <i data-lucide="send"></i>
                 </button>
             </form>
@@ -638,10 +660,10 @@
                 <p>&copy; 2024 Cyber Dev. All rights reserved.</p>
             </div>
             <div class="footer-links">
-                <a href="#home">Home</a>
-                <a href="#about">Sobre</a>
-                <a href="#projects">Projetos</a>
-                <a href="#contact">Contato</a>
+                <a href="#home" data-i18n="nav.home">Home</a>
+                <a href="#about" data-i18n="nav.about">Sobre</a>
+                <a href="#projects" data-i18n="nav.projects">Projetos</a>
+                <a href="#contact" data-i18n="nav.contact">Contato</a>
             </div>
         </div>
     </footer>
