@@ -768,6 +768,37 @@ document.getElementById('lang-en').addEventListener('click', () => {
     setLanguage('en');
 });
 
+// Language select (dropdown) support
+document.addEventListener('DOMContentLoaded', () => {
+    const select = document.getElementById('lang-select');
+    if (!select) return;
+    const params = new URLSearchParams(window.location.search);
+    const current = params.get('lang') || 'en';
+    select.value = current;
+    select.addEventListener('change', (e) => {
+        const lang = e.target.value;
+        setLanguage(lang);
+    });
+});
+
+// CV dropdown toggle
+document.addEventListener('DOMContentLoaded', () => {
+    const trigger = document.getElementById('cv-trigger');
+    const menu = document.getElementById('cv-menu');
+    if (!trigger || !menu) return;
+    const open = () => { menu.classList.add('open'); menu.setAttribute('aria-hidden','false'); trigger.setAttribute('aria-expanded','true'); };
+    const close = () => { menu.classList.remove('open'); menu.setAttribute('aria-hidden','true'); trigger.setAttribute('aria-expanded','false'); };
+    trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (menu.classList.contains('open')) close(); else open();
+    });
+    document.addEventListener('click', (e) => {
+        if (menu.classList.contains('open') && !menu.contains(e.target) && e.target !== trigger) close();
+    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+    menu.querySelectorAll('a.cv-item').forEach(a => a.addEventListener('click', close));
+});
+
 // i18n translations
 const i18n = {
     en: {
@@ -780,10 +811,14 @@ const i18n = {
         'nav.contact': 'Contact',
         'hero.hello': "HELLO, I'M",
         'hero.name': 'DEVELOPER',
-        'hero.role': 'FULL-STACK DEVELOPER',
-        'hero.subtitle': 'Transforming ideas into extraordinary digital experiences',
+    'hero.role': 'Salesforce & Full‑Stack Developer',
+    'hero.subtitle': 'Salesforce development (Apex, LWC, SOQL) and modern full‑stack apps',
         'hero.cta': 'GET IN TOUCH',
         'hero.download': 'DOWNLOAD CV',
+    'cv.sf.en': 'Salesforce — English',
+    'cv.sf.pt': 'Salesforce — Português',
+    'cv.web.en': 'Web Developer — English',
+    'cv.web.pt': 'Web Developer — Português',
         'hero.photoAlt': 'Professional profile photo of Matheus Gonzalez',
         'about.title': 'ABOUT ME',
         'about.description': 'Full Stack Web Developer with 1+ year experience in front-end and back-end development, specialized in building scalable applications, API integrations, and modern web solutions. Proficient in React, Node.js, Django, PHP, MySQL, and MongoDB. Additionally, Salesforce Certified with hands-on experience in Apex, SOQL, and LWC, bringing extra expertise in CRM customization and automation.',
@@ -795,7 +830,62 @@ const i18n = {
         'edu.title': 'EDUCATION & CERTIFICATIONS',
         'projects.title': 'FEATURED PROJECTS',
     'projects.viewAll': 'VIEW ALL PROJECTS',
+    // Experience items
+    'exp.item1.date': 'DEC/2024 - JAN/2025',
+    'exp.item1.title': 'Freelance Web Developer',
+    'exp.item1.company': 'Freelance',
+    'exp.item1.desc': 'Developed a full Wedding system using HTML, CSS, PHP and MySQL. Implemented guest and family login, RSVP confirmation, and database integration. Focused on usability and secure access with authentication tokens.',
+    'exp.item2.date': 'APR/2024 - NOV/2024',
+    'exp.item2.title': 'Intern Developer',
+    'exp.item2.company': 'CRAE - Casa de Repouso Amor Eterno',
+    'exp.item2.desc': 'Developed a fully customized management system based on specific requirements from the clinic owner. Designed and implemented a relational database using SQL. Implemented CRUD operations, enabling patient, doctor, and staff registration and consultation processes to be completed up to 60% faster compared to manual methods. Improved internal management efficiency by 35%. Developed an automated inventory control system, optimizing internal processes and reducing operational errors by over 50%.',
+    // Education items
+    'edu.item1.title': 'Web Developer Diploma',
+    'edu.item1.inst': 'Tamwood International College – Vancouver',
+    'edu.item1.period': 'APR/2025 - OCT/2025',
+    'edu.item1.desc': "The program includes 6 months of academic study. I've had the opportunity to develop dynamic and responsive websites, integrate RESTful APIs, and apply agile methodologies such as Scrum. I also gained hands-on experience in advanced front-end projects using HTML, CSS, and frameworks like Bootstrap and Tailwind, along with JavaScript and React. Back-end technologies such as Node.js and Express.js, databases like MySQL and MongoDB, content management systems (WordPress), and programming with Python and Django were also covered.",
+    'edu.item2.title': 'Technical High School – IT',
+    'edu.item2.inst': 'Colégio UNIVAP – Brazil',
+    'edu.item2.period': 'JAN/2022 – DEC/2024',
+    'edu.item2.desc': 'I gained experience in projects involving software development, database management, web programming, computer graphics, computer networks, and object-oriented programming. Additionally, the projects were developed in teams of three, which helped me improve not only technical skills but also my ability to propose innovative solutions, collaborate effectively, and solve problems. Over the 3-year period, I participated in programming competitions and achieved 4th place in the INIC. I also presented projects at technical fairs, sharing our work with the academic and professional community.',
+    'edu.item3.title': 'Salesforce Certified Platform Foundations',
+    'edu.item3.inst': 'Salesforce',
+    'edu.item3.period': '2024',
+    'edu.item3.desc': 'Fundamentals of Salesforce development, CRM customization, Apex and SOQL basics.',
+    'edu.item4.title': 'The Complete Salesforce Development Course',
+    'edu.item4.inst': 'Udemy',
+    'edu.item4.period': '2024',
+    'edu.item4.desc': '15+ hands-on projects covering Apex, LWC, SOQL, Governor Limits, and Salesforce architecture.',
+    'edu.item5.title': '4th Place – INIC UNIVAP',
+    'edu.item5.inst': 'Universidade do Vale do Paraíba',
+    'edu.item5.period': '2024',
+    'edu.item5.desc': 'Recognition in scientific initiation for innovative IT project development.',
+    'edu.item6.title': 'Programming Marathon – Participant',
+    'edu.item6.inst': 'Junior Programming Marathon',
+    'edu.item6.period': '2022/2023/2024',
+    'edu.item6.desc': 'Participation in competitive programming marathon applying algorithms and teamwork.',
+    'edu.item7.title': 'Data Analysis in Excel',
+    'edu.item7.inst': 'Independent Certification',
+    'edu.item7.period': '2023',
+    'edu.item7.desc': 'Training focused on data cleaning, pivot tables, formulas, charts, and insights for decision-making using Excel.',
+    'edu.item8.title': 'Trailhead – Salesforce Mountaineer',
+    'edu.item8.inst': 'Salesforce Trailhead',
+    'edu.item8.period': 'Ongoing',
+    'edu.item8.desc': '30+ badges earned, 25,000+ points. Focused on Apex, SOQL, Lightning Web Components, and automation.',
+    // University (new)
+    'edu.uni.title': 'Computer Engineering (Bachelor)',
+    'edu.uni.inst': 'UNIVAP — Universidade do Vale do Paraíba',
+    'edu.uni.period': 'Starts JAN/2026 — 5 years',
+    'edu.uni.desc': 'Undergraduate degree focusing on Computer Engineering. Core areas include software engineering, computer architecture, embedded systems, networks, and systems integration.',
+    // Project cards
+    'proj.card1.title': 'Car Deals-CMS',
+    'proj.card1.desc': 'CarDeals CMS is a content management system for car dealerships built with PHP and MySQL. It lets administrators manage cars and users while customers browse and purchase vehicles through a simple responsive interface.',
+    'proj.card2.title': 'CryptoDashboard',
+    'proj.card2.desc': 'CryptoDashboard is a full-stack cryptocurrency tracking application that lets users register, login, explore 50+ coins, view interactive charts, manage a virtual balance and read live crypto news.',
+    'proj.card3.title': 'Word Shuffle (Salesforce)',
+    'proj.card3.desc': 'Word Shuffle is a Lightning Aura based mini-game embedded in the Salesforce Service App Home Tab. Users receive a shuffled word and must guess the correct one within limited attempts depending on difficulty.',
         'contact.title': 'GET IN TOUCH',
+        'about.moreBtn': 'A little more about me',
         'contact.email': 'Email',
         'contact.location': 'Location',
         'form.name': 'Name',
@@ -812,12 +902,16 @@ const i18n = {
         'nav.skills': 'Habilidades',
         'nav.projects': 'Projetos',
         'nav.contact': 'Contato',
-        'hero.hello': 'OLÁ, EU SOU',
+        'hero.hello': 'OLÁ',
         'hero.name': 'DESENVOLVEDOR',
-        'hero.role': 'DESENVOLVEDOR FULL-STACK',
-        'hero.subtitle': 'Transformando ideias em experiências digitais extraordinárias',
+    'hero.role': 'Desenvolvedor Salesforce & Full‑Stack',    
+    'hero.subtitle': 'Desenvolvimento Salesforce (Apex, LWC, SOQL) e apps full‑stack',    
         'hero.cta': 'FALE COMIGO',
-        'hero.download': 'BAIXAR CV',
+    'hero.download': 'BAIXAR CV',
+    'cv.sf.en': 'Salesforce — Inglês',
+    'cv.sf.pt': 'Salesforce — Português',
+    'cv.web.en': 'Web Developer — Inglês',
+    'cv.web.pt': 'Web Developer — Português',
     'hero.photoAlt': 'Foto profissional de perfil de Matheus Gonzalez',
         'about.title': 'SOBRE MIM',
         'about.description': 'Desenvolvedor Web Full Stack com 1+ ano de experiência em front-end e back-end, especializado em aplicações escaláveis, integrações de APIs e soluções web modernas. Domínio em React, Node.js, Django, PHP, MySQL e MongoDB. Certificação Salesforce com experiência prática em Apex, SOQL e LWC, trazendo expertise em customização e automação de CRM.',
@@ -829,7 +923,62 @@ const i18n = {
         'edu.title': 'EDUCAÇÃO & CERTIFICAÇÕES',
         'projects.title': 'PROJETOS EM DESTAQUE',
     'projects.viewAll': 'VER TODOS OS PROJETOS',
+    // Experience items
+    'exp.item1.date': 'DEZ/2024 - JAN/2025',
+    'exp.item1.title': 'Desenvolvedor Web Freelancer',
+    'exp.item1.company': 'Freelancer',
+    'exp.item1.desc': 'Desenvolvi um sistema completo de casamentos usando HTML, CSS, PHP e MySQL. Implementei login de convidados e familiares, confirmação de presença (RSVP) e integração com banco de dados, com foco em usabilidade e segurança com tokens de autenticação.',
+    'exp.item2.date': 'ABR/2024 - NOV/2024',
+    'exp.item2.title': 'Desenvolvedor Full-Stack Estagiário',
+    'exp.item2.company': 'CRAE - Casa de Repouso Amor Eterno',
+    'exp.item2.desc': 'Desenvolvi um sistema de gestão totalmente personalizado a partir de requisitos específicos da clínica. Modelei e implementei banco de dados relacional em SQL. Implementei operações CRUD, agilizando os cadastros e consultas de pacientes, médicos e equipe em até 60% em relação ao processo manual. Melhorei a eficiência da gestão interna em 35% e criei um controle de estoque automatizado, reduzindo erros operacionais em mais de 50%.',
+    // Education items
+    'edu.item1.title': 'Diploma de Desenvolvedor Web',
+    'edu.item1.inst': 'Tamwood International College – Vancouver',
+    'edu.item1.period': 'ABR/2025 - OUT/2025',
+    'edu.item1.desc': 'O programa inclui 6 meses de estudo acadêmico. Desenvolvi sites dinâmicos e responsivos, integrei APIs RESTful e apliquei metodologias ágeis como Scrum. Trabalhei com projetos avançados de front-end (HTML, CSS, Bootstrap, Tailwind, JavaScript e React) e também com back-end (Node.js, Express), bancos de dados (MySQL, MongoDB), CMS (WordPress) e programação com Python e Django.',
+    'edu.item2.title': 'Ensino Técnico – Informática',
+    'edu.item2.inst': 'Colégio UNIVAP – Brasil',
+    'edu.item2.period': 'JAN/2022 – DEZ/2024',
+    'edu.item2.desc': 'Atuei em projetos de desenvolvimento de software, banco de dados, programação web, computação gráfica, redes de computadores e POO. Os projetos foram desenvolvidos em equipes de três pessoas, aprimorando habilidades técnicas e colaboração. Participei de competições de programação (4º lugar no INIC) e apresentei projetos em feiras técnicas.',
+    'edu.item3.title': 'Salesforce Certified Platform Foundations',
+    'edu.item3.inst': 'Salesforce',
+    'edu.item3.period': '2024',
+    'edu.item3.desc': 'Fundamentos de desenvolvimento na plataforma Salesforce, customização de CRM, noções de Apex e SOQL.',
+    'edu.item4.title': 'The Complete Salesforce Development Course',
+    'edu.item4.inst': 'Udemy',
+    'edu.item4.period': '2024',
+    'edu.item4.desc': 'Mais de 15 projetos práticos abordando Apex, LWC, SOQL, Governor Limits e arquitetura Salesforce.',
+    'edu.item5.title': '4º Lugar – INIC UNIVAP',
+    'edu.item5.inst': 'Universidade do Vale do Paraíba',
+    'edu.item5.period': '2024',
+    'edu.item5.desc': 'Reconhecimento em iniciação científica por desenvolvimento de projeto de TI inovador.',
+    'edu.item6.title': 'Maratona de Programação – Participante',
+    'edu.item6.inst': 'Maratona de Programação Júnior',
+    'edu.item6.period': '2022/2023/2024',
+    'edu.item6.desc': 'Participação em maratona de programação competitiva, aplicando algoritmos e trabalho em equipe.',
+    'edu.item7.title': 'Análise de Dados no Excel',
+    'edu.item7.inst': 'Certificação Independente',
+    'edu.item7.period': '2023',
+    'edu.item7.desc': 'Treinamento em limpeza de dados, tabelas dinâmicas, fórmulas, gráficos e geração de insights para tomada de decisão com Excel.',
+    'edu.item8.title': 'Trailhead – Salesforce Mountaineer',
+    'edu.item8.inst': 'Salesforce Trailhead',
+    'edu.item8.period': 'Em andamento',
+    'edu.item8.desc': '30+ badges e 25.000+ pontos. Foco em Apex, SOQL, Lightning Web Components e automação.',
+    // Universidade (novo)
+    'edu.uni.title': 'Engenharia da Computação (Bacharelado)',
+    'edu.uni.inst': 'UNIVAP — Universidade do Vale do Paraíba',
+    'edu.uni.period': 'Início JAN/2026 — 5 anos',
+    'edu.uni.desc': 'Graduação com foco em Engenharia da Computação. Áreas centrais incluem engenharia de software, arquitetura de computadores, sistemas embarcados, redes e integração de sistemas.',
+    // Project cards
+    'proj.card1.title': 'Car Deals-CMS',
+    'proj.card1.desc': 'CarDeals CMS é um sistema para concessionárias desenvolvido em PHP e MySQL. Permite administrar carros e usuários enquanto clientes navegam e compram veículos numa interface responsiva e simples.',
+    'proj.card2.title': 'CryptoDashboard',
+    'proj.card2.desc': 'Aplicação full-stack para acompanhar criptomoedas: cadastro/login, exploração de 50+ moedas, gráficos interativos, saldo virtual e notícias ao vivo.',
+    'proj.card3.title': 'Word Shuffle (Salesforce)',
+    'proj.card3.desc': 'Mini-jogo baseado em Lightning Aura no Salesforce Service App (Home). O usuário recebe uma palavra embaralhada e deve adivinhar a correta com tentativas limitadas conforme a dificuldade.',
         'contact.title': 'ENTRE EM CONTATO',
+        'about.moreBtn': 'Um pouco mais sobre mim',
         'contact.email': 'Email',
         'contact.location': 'Localização',
         'form.name': 'Nome',
@@ -871,6 +1020,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const params = new URLSearchParams(window.location.search);
     const lang = params.get('lang') || 'en';
     applyTranslations(lang);
+    // Ensure intro overlay stays hidden if present
+    const intro = document.getElementById('intro-overlay');
+    if (intro) intro.style.display = 'none';
 });
 
 // Project modal data + logic
@@ -1010,7 +1162,7 @@ const projectData = {
                 ]
             },
             pt: {
-                title: 'Aventura da Memória do Cachorro',
+                title: 'Jogo Memory Card',
                 short: 'Jogo da memória com um cachorro fofo, vidas, níveis e progressão animada de saúde.',
                 sections: [
                     { heading: 'Visão Geral', type: 'p', body: 'Um jogo interativo de memória onde você combina cartas de comida mantendo o cachorro saudável. Cada erro custa uma vida; acertos recuperam saúde. Limpe todos os pares em rodadas crescentes para levar o cachorro em segurança para casa.' },
@@ -1073,7 +1225,7 @@ const projectData = {
                 ]
             },
             pt: {
-                title: 'Gestão de Mercearia',
+                title: 'Gestão de Mercado',
                 short: 'Plataforma Django com fluxo de compras para clientes e revisão de cestas/produtos pelo staff.',
                 sections: [
                     { heading: 'Visão Geral', type: 'p', body: 'Aplicação Django 5 com controle de acesso por perfil separando a experiência do cliente da interface administrativa. Clientes navegam produtos, montam cestas e acompanham compras; staff gerencia inventário e aprova cestas.' },

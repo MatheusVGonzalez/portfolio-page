@@ -386,6 +386,32 @@ body {
     outline: none;
 }
 
+/* Language select (nav) */
+.lang-select {
+    /* Dark, high-contrast look so options are readable when opened */
+    background: rgba(8, 12, 16, 0.9);
+    color: var(--text-light);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-family: 'Rajdhani', sans-serif;
+    letter-spacing: .06em;
+    font-size: 14px;
+    cursor: pointer;
+    /* Encourage native dark dropdown rendering where supported */
+    color-scheme: dark;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+.lang-select:focus { outline: none; box-shadow: 0 0 0 2px rgba(0,255,136,0.35); }
+
+/* Ensure dropdown options use dark background (supported in most browsers) */
+.lang-select option {
+    background-color: #0b0f14;
+    color: var(--text-light);
+}
+
 .logo-text {
     font-family: 'Orbitron', monospace;
     font-size: 24px;
@@ -569,11 +595,40 @@ body {
     animation: slideInLeft 1s ease-out 0.6s both;
 }
 
+/* Small chip row under hero subtitle to highlight Salesforce focus */
+.hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: -28px 0 28px; /* tuck closer to subtitle */
+}
+
 .hero-buttons {
     display: flex;
     gap: 20px;
     animation: slideInLeft 1s ease-out 0.8s both;
 }
+
+/* CV dropdown */
+.cv-dropdown { position: relative; }
+.cv-menu {
+    position: absolute;
+    top: 110%;
+    right: 0;
+    min-width: 260px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    backdrop-filter: blur(8px);
+    display: none;
+    z-index: 2000;
+}
+.cv-menu.open { display: block; }
+.cv-item { display:block; padding:10px 12px; border-radius:8px; color:var(--text-light); text-decoration:none; font-weight:600; letter-spacing:.04em; }
+.cv-item:hover { background: rgba(0,255,136,0.12); color: var(--primary-color); }
+.cv-sep { height:1px; background: var(--glass-border); margin:6px 4px; }
 
 .btn-primary, .btn-secondary {
     padding: 15px 30px;
@@ -646,11 +701,10 @@ body {
     border: 2px solid rgba(255,255,255,0.12);
     box-shadow: 0 4px 16px rgba(0,0,0,0.55);
     background:#111;
-    transition: transform .7s ease, box-shadow .7s ease, border-color .7s ease;
+    transition: box-shadow .7s ease, border-color .7s ease;
 }
 
 .profile-image:hover {
-    transform: scale(1.02);
     box-shadow: 0 6px 22px rgba(0,0,0,0.65);
     border-color: rgba(255,255,255,0.28);
 }
@@ -661,6 +715,13 @@ body {
     object-fit: cover;
     filter: none !important;
     mix-blend-mode: normal;
+    transition: transform .6s ease;
+    will-change: transform;
+}
+
+/* Scale only the image on hover to avoid any stretching of the container */
+.profile-image:hover img {
+    transform: scale(1.03);
 }
 
 @keyframes rotate {
@@ -801,6 +862,15 @@ section {
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
 }
+
+/* About actions (CTA button area) */
+.about-actions { display:flex; gap:12px; flex-wrap:wrap; }
+
+/* Personal info grid (used on About page) */
+.personal-info { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:16px; }
+.info-item { background: var(--bg-darker); border: 1px solid var(--glass-border); border-radius: 12px; padding: 14px 16px; }
+.info-label { color: var(--text-gray); font-size: 12px; letter-spacing:.08em; text-transform: uppercase; display:block; margin-bottom:6px; }
+.info-value { color: var(--text-light); font-weight:600; font-size: 16px; word-break: break-word; }
 
 .stat-item {
     text-align: center;

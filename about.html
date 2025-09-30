@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Um pouco mais sobre Matheus Gonzalez — informações pessoais, bio e contatos.">
+  <meta name="theme-color" content="#00ff88">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Sobre | Matheus Gonzalez">
+  <meta property="og:description" content="Conheça mais sobre mim: trajetória, interesses e como falar comigo.">
+  <meta property="og:image" content="assets/profile.jpeg">
+  <link rel="icon" href="assets/github.png">
+  <title>Sobre | Matheus Gonzalez</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+  <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+  <script type="module">
+    import * as lucide from 'https://unpkg.com/lucide@latest/dist/esm/lucide.js';
+    window.lucide = lucide;
+  </script>
+  <style>
+    .about-page-header { text-align:center; margin-top:120px; }
+    .about-page-header h1 { font-family:'Orbitron',sans-serif; font-size:46px; letter-spacing:.08em; background:var(--gradient-primary); -webkit-background-clip:text; background-clip:text; color:transparent; margin-bottom:12px; }
+    .about-page-header p { color:var(--text-gray); max-width:760px; margin:0 auto 40px; font-size:18px; line-height:1.5; }
+
+  .about-page-grid { display:grid; gap:34px; grid-template-columns: 30% 70%; align-items:start; padding:20px 0 80px; }
+  /* Stack on smaller screens */
+  @media (max-width: 992px) { .about-page-grid { grid-template-columns: 1fr; } }
+
+  .about-card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 14px; padding: 20px; }
+  .about-photo { display:flex; flex-direction: column; align-items:center; justify-content:center; gap:16px; }
+    .about-photo img { width: 280px; height: 280px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,0.15); box-shadow: 0 6px 28px rgba(0,0,0,0.35); }
+
+    .personal-info { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:16px; margin: 10px 0 6px; }
+    .info-item { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 12px; padding: 14px 16px; }
+    .info-label { color: var(--text-gray); font-size: 12px; letter-spacing:.08em; text-transform: uppercase; display:block; margin-bottom:6px; }
+    .info-value { color: var(--text-light); font-weight:600; font-size: 16px; word-break: break-word; }
+  .info-value a { color: inherit; text-decoration: none; }
+  .info-value a:visited { color: inherit; }
+  .info-value a:hover { text-decoration: underline; color: var(--primary-color); }
+
+    .about-bio { color: var(--text-gray); font-size: 16px; line-height: 1.7; }
+    .about-actions { margin-top: 18px; display:flex; gap:12px; flex-wrap:wrap; }
+    .about-actions a.btn-secondary { text-decoration:none; }
+  </style>
+</head>
+<body>
+  <a href="index.html#about" class="back-home-link">⟵ HOME</a>
+  <nav class="navbar" style="backdrop-filter: blur(6px); background:rgba(0,0,0,0.4);">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <span class="logo-text">Matheus Gonzalez</span>
+        <div class="logo-dot"></div>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="index.html#home" class="nav-link" data-i18n="nav.home">Home</a></li>
+        <li><a href="index.html#about" class="nav-link" data-i18n="nav.about">About</a></li>
+        <li><a href="index.html#experience" class="nav-link" data-i18n="nav.experience">Experiences</a></li>
+        <li><a href="index.html#skills" class="nav-link" data-i18n="nav.skills">Skills</a></li>
+        <li><a href="projects.html" class="nav-link" data-i18n="nav.projects">Projects</a></li>
+        <li><a href="index.html#contact" class="nav-link" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+      <div class="nav-lang">
+        <select id="lang-select" class="lang-select" aria-label="Select language">
+          <option value="pt">🇧🇷 Português</option>
+          <option value="en">🇺🇸 English</option>
+        </select>
+        <button id="lang-pt" aria-label="Português" class="lang-btn" style="display:none">Português</button>
+        <button id="lang-en" aria-label="English" class="lang-btn" style="display:none">English</button>
+      </div>
+      <div class="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" style="max-width:1280px; margin:0 auto; padding:0 40px;">
+    <header class="about-page-header">
+      <h1 data-i18n="aboutPage.title">Um pouco mais sobre mim</h1>
+      <p data-i18n="aboutPage.subtitle"></p>
+    </header>
+
+    <section class="about-page-grid">
+      <aside class="about-card about-photo">
+        <img src="assets/profile.jpeg" alt="Foto de perfil" />
+        <div class="personal-info">
+          <div class="info-item">
+            <span class="info-label" data-i18n="aboutPage.info.nameLabel">Nome</span>
+            <span class="info-value" id="nameValue">Matheus Verissimo Gonzalez</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label" data-i18n="aboutPage.info.ageLabel">Idade</span>
+            <span class="info-value"><span id="ageValue" data-birthdate="2006-03-27">18</span></span>
+          </div>
+          <div class="info-item">
+            <span class="info-label" data-i18n="aboutPage.info.cityLabel">Cidade</span>
+            <span class="info-value" data-i18n="aboutPage.info.cityValue">São José dos Campos, Brasil</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label" data-i18n="aboutPage.info.emailLabel">Email</span>
+            <span class="info-value"><a href="mailto:matheusverissimogonzalez@gmail.com">matheusverissimogonzalez@gmail.com</a></span>
+          </div>
+          <div class="info-item">
+            <span class="info-label" data-i18n="aboutPage.info.linkedinLabel">LinkedIn</span>
+            <span class="info-value"><a href="https://www.linkedin.com/in/matheus-vgonzalez/" target="_blank" rel="noopener">linkedin.com/in/matheus-vgonzalez</a></span>
+          </div>
+        </div>
+      </aside>
+      <section class="about-card">
+        <h2 class="section-title" style="margin-top:0" data-i18n="aboutPage.sectionHeading">Quem eu sou</h2>
+        <div class="section-line" style="margin:10px 0 18px"></div>
+        <div class="about-bio">
+          <p data-i18n="aboutPage.bio1">Meu nome é Matheus Verissimo Gonzalez, tenho 18 anos e moro em São José dos Campos, SP. Sempre gostei de tecnologia. Quando eu era criança, já criava aplicativos com o MIT App Inventor, e desde então sempre me interessei muito. Na UNIVAP, cursei ensino médio técnico em Informática, tive contato com programação web, bancos de dados, redes, hardware, computação gráfica e POO, além de participar de maratonas de programação e feiras técnicas, onde aprendi a trabalhar em equipe e a utilidade do Git.</p>
+          <p data-i18n="aboutPage.bio2">Tive a oportunidade de morar 7 meses em Vancouver, no Canadá, onde conclui um diploma em Web Development. Lá, aprofundei minhas habilidades em front-end (HTML, CSS, JavaScript, React, Vue, Tailwind) e back-end (Node.js, Django, PHP, APIs REST, bancos de dados), além de aprender metodologias ágeis como Scrum e alcançar fluência no inglês.</p>
+        <p data-i18n="aboutPage.bio3">Além disso, atuo no ecossistema Salesforce, onde possuo a certificação Platform Foundations e estou em preparação para a Platform Developer I. Também concluí o curso completo de desenvolvimento Salesforce na Udemy, com mais de 15 projetos práticos. Tenho experiência com Apex, SOQL, Lightning Web Components (LWC), Flow Builder e Service Cloud, aplicando boas práticas como bulkification, testes unitários e atenção aos Governor Limits. No Trailhead, já conquistei mais de 30 emblemas e 25.000 pontos.</p>
+        <p data-i18n="aboutPage.bio4">Hoje, sou desenvolvedor full-stack com experiência prática em projetos grandes e inovadores usando APIs. Busco oportunidades tanto como Salesforce Developer, aplicando meu conhecimento na plataforma, quanto como Full-Stack Developer, aproveitando minha base sólida em front-end, back-end e integrações para entregar soluções completas e escaláveis.</p>
+        </div>
+        
+        <div class="about-actions">
+          <a href="projects.html" class="btn-secondary" data-i18n="aboutPage.ctaProjects">Ver projetos</a>
+          <a href="index.html#contact" class="btn-primary" data-i18n="aboutPage.ctaContact">Falar comigo</a>
+          <a href="https://www.linkedin.com/in/matheus-vgonzalez/" target="_blank" rel="noopener" class="btn-secondary" data-i18n="aboutPage.ctaLinkedIn">LinkedIn</a>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-text">&copy; <span id="yearSpan"></span> Matheus Gonzalez.</div>
+    </div>
+  </footer>
+
+  <script src="about.js"></script>
+</body>
+</html>

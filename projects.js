@@ -221,7 +221,7 @@ const projectData = {
       ]
     },
     pt: {
-      title: 'Aventura da Memória do Cachorro',
+      title: 'Jogo Memory Card',
       short: 'Jogo da memória com um cachorro fofo, vidas, níveis e progressão animada de saúde.',
       sections: [
         { heading: 'Visão Geral', type: 'p', body: 'Um jogo interativo de memória onde você combina cartas de comida mantendo o cachorro saudável. Cada erro custa uma vida; acertos recuperam saúde. Limpe todos os pares em rodadas crescentes para levar o cachorro em segurança para casa.' },

@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio de Matheus Gonzalez — Desenvolvedor Full-Stack (React, Node.js, Django, PHP, Salesforce, Python).">
+    <meta name="theme-color" content="#00ff88">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Matheus Gonzalez | Full-Stack Developer">
+    <meta property="og:description" content="Projetos em React, Node.js, Django, PHP, Salesforce e mais.">
+    <meta property="og:image" content="assets/projeto1.png">
+    <link rel="icon" href="assets/github.png">
     <title>Matheus Gonzalez</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -22,7 +29,7 @@
     
 </head>
 <body>
-    <div id="intro-overlay" aria-hidden="true">
+    <div id="intro-overlay" aria-hidden="true" style="display:none;">
         <div class="intro-center">
             <div class="laptop3d" role="img" aria-label="Laptop 3D abrindo">
                 <div class="laptop-base">
@@ -77,8 +84,12 @@
                 <li><a href="#contact" class="nav-link" data-i18n="nav.contact">Contact</a></li>
             </ul>
             <div class="nav-lang">
-                <button id="lang-pt" aria-label="Português" class="lang-btn">🇧🇷</button>
-                <button id="lang-en" aria-label="English" class="lang-btn">🇺🇸</button>
+                <select id="lang-select" class="lang-select" aria-label="Select language">
+                    <option value="pt">🇧🇷 Português</option>
+                    <option value="en">🇺🇸 English</option>
+                </select>
+                <button id="lang-pt" aria-label="Português" class="lang-btn" style="display:none">Português</button>
+                <button id="lang-en" aria-label="English" class="lang-btn" style="display:none">English</button>
             </div>
             <div class="hamburger">
                 <span></span>
@@ -101,15 +112,31 @@
                     <span class="title-role" data-i18n="hero.role">FULL-STACK DEVELOPER</span>
                 </h1>
                 <p class="hero-subtitle" data-i18n="hero.subtitle">Transforming ideas into extraordinary digital experiences</p>
+                <div class="hero-tags" aria-label="Key technologies">
+                    <span class="tech-tag">Salesforce</span>
+                    <span class="tech-tag">Apex</span>
+                    <span class="tech-tag">LWC</span>
+                    <span class="tech-tag">SOQL</span>
+                    <span class="tech-tag">Integrations</span>
+                </div>
                 <div class="hero-buttons">
                     <button class="btn-primary" onclick="scrollToSection('contact')">
                         <span data-i18n="hero.cta">GET IN TOUCH</span>
                         <i data-lucide="arrow-right"></i>
                     </button>
-                    <button class="btn-secondary" onclick="downloadResume()">
-                        <span data-i18n="hero.download">DOWNLOAD CV</span>
-                        <i data-lucide="download"></i>
-                    </button>
+                    <div class="cv-dropdown">
+                        <button id="cv-trigger" class="btn-secondary" aria-haspopup="true" aria-expanded="false">
+                            <span data-i18n="hero.download">DOWNLOAD CV</span>
+                            <i data-lucide="download"></i>
+                        </button>
+                        <div id="cv-menu" class="cv-menu" role="menu" aria-hidden="true">
+                            <a class="cv-item" role="menuitem" href="salesforce-cv-en.pdf" download data-i18n="cv.sf.en">Salesforce — English</a>
+                            <a class="cv-item" role="menuitem" href="salesforce-cv-pt.pdf" download data-i18n="cv.sf.pt">Salesforce — Português</a>
+                            <div class="cv-sep" role="separator"></div>
+                            <a class="cv-item" role="menuitem" href="resume.pdf" download data-i18n="cv.web.en">Web Developer — English</a>
+                            <a class="cv-item" role="menuitem" href="curriculo.pdf" download data-i18n="cv.web.pt">Web Developer — Português</a>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="hero-visual">
@@ -143,6 +170,9 @@
                 <p class="about-description" data-i18n="about.description">
                     Full Stack Web Developer with 1+ year experience in front-end and back-end development, specialized in building scalable applications, API integrations, and modern web solutions. Proficient in React, Node.js, Django, PHP, MySQL, and MongoDB. Additionally, Salesforce Certified with hands-on experience in Apex, SOQL, and LWC, bringing extra expertise in CRM customization and automation.
                 </p>
+                <div class="about-actions" style="margin-top:16px;">
+                    <a href="about.html" class="btn-secondary" data-i18n="about.moreBtn">Um pouco mais sobre mim</a>
+                </div>
                 <div class="about-stats">
                     <div class="stat-item">
                         <div class="stat-number" data-target="5">1+</div>
@@ -180,10 +210,10 @@
              <div class="timeline-item">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
-                    <div class="timeline-date">DEZ/2024 - JAN/2025</div>
-                    <h3 class="timeline-title">Freelance Web Developer</h3>
-                    <h4 class="timeline-company">Freelance</h4>
-                    <p class="timeline-description">
+                    <div class="timeline-date" data-i18n="exp.item1.date">DEZ/2024 - JAN/2025</div>
+                    <h3 class="timeline-title" data-i18n="exp.item1.title">Freelance Web Developer</h3>
+                    <h4 class="timeline-company" data-i18n="exp.item1.company">Freelance</h4>
+                    <p class="timeline-description" data-i18n="exp.item1.desc">
                         Developed a full Wedding system using HTML, CSS, PHP and MySQL. Implemented guest and family login, RSVP confirmation, and database integration. Focused on usability and secure access with authentication tokens.
                     </p>
                     <div class="timeline-tech">
@@ -197,10 +227,10 @@
             <div class="timeline-item">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
-                    <div class="timeline-date">APR/2024 - NOV/2024</div>
-                    <h3 class="timeline-title">Intern Developer</h3>
-                    <h4 class="timeline-company">CRAE - Casa de Repouso Amor Eterno</h4>
-                    <p class="timeline-description">
+                    <div class="timeline-date" data-i18n="exp.item2.date">APR/2024 - NOV/2024</div>
+                    <h3 class="timeline-title" data-i18n="exp.item2.title">Intern Developer</h3>
+                    <h4 class="timeline-company" data-i18n="exp.item2.company">CRAE - Casa de Repouso Amor Eterno</h4>
+                    <p class="timeline-description" data-i18n="exp.item2.desc">
                         Developed a fully customized management system based on specific requirements from the clinic owner. Designed and implemented a relational database using SQL. Implemented CRUD operations, enabling patient, doctor, and staff registration and consultation processes to be completed up to 60% faster compared to manual methods.  Improved internal management efficiency by 35%. Developed an automated inventory control system, optimizing internal processes and reducing operational errors by over 50%.
                     </p>
                     <div class="timeline-tech">
@@ -337,13 +367,25 @@
 
         <div class="education-card">
             <div>
-                <img src="assets/tamwood.png" alt="Tamwood" class="education-icon">
+                <img src="assets/univap.png" alt="UNIVAP" class="education-icon" loading="lazy" decoding="async">
             </div>
             <div class="education-content">
-                <h3 class="education-title">Web Developer Diploma</h3>
-                <h4 class="education-institution">Tamwood International College – Vancouver</h4>
-                <div class="education-period">APR/2025 - OCT/2025</div>
-                <p class="education-description">
+                <h3 class="education-title" data-i18n="edu.uni.title">Computer Engineering (Bachelor)</h3>
+                <h4 class="education-institution" data-i18n="edu.uni.inst">UNIVAP — Universidade do Vale do Paraíba</h4>
+                <div class="education-period" data-i18n="edu.uni.period">Starts JAN/2026 — 5 years</div>
+                <p class="education-description" data-i18n="edu.uni.desc">Undergraduate degree focusing on Computer Engineering. Core areas include software engineering, computer architecture, embedded systems, networks, and systems integration.</p>
+            </div>
+        </div>
+
+        <div class="education-card">
+            <div>
+                <img src="assets/tamwood.png" alt="Tamwood" class="education-icon" loading="lazy" decoding="async">
+            </div>
+            <div class="education-content">
+                <h3 class="education-title" data-i18n="edu.item1.title">Web Developer Diploma</h3>
+                <h4 class="education-institution" data-i18n="edu.item1.inst">Tamwood International College – Vancouver</h4>
+                <div class="education-period" data-i18n="edu.item1.period">APR/2025 - OCT/2025</div>
+                <p class="education-description" data-i18n="edu.item1.desc">
                     The program includes 6 months of academic study. I've had the opportunity to develop dynamic and 
                     responsive websites, integrate RESTful APIs, and apply agile methodologies 
                     such as Scrum. I also gained hands-on experience in advanced front-end 
@@ -358,13 +400,13 @@
 
         <div class="education-card">
             <div>
-                <img src="assets/univap.png" alt="Univap" class="education-icon">
+                <img src="assets/univap.png" alt="Univap" class="education-icon" loading="lazy" decoding="async">
             </div>
             <div class="education-content">
-                <h3 class="education-title">Technical High School – IT</h3>
-                <h4 class="education-institution">Colégio UNIVAP – Brazil</h4>
-                <div class="education-period">JAN/2022 – DEC/2024</div>
-                <p class="education-description">
+                <h3 class="education-title" data-i18n="edu.item2.title">Technical High School – IT</h3>
+                <h4 class="education-institution" data-i18n="edu.item2.inst">Colégio UNIVAP – Brazil</h4>
+                <div class="education-period" data-i18n="edu.item2.period">JAN/2022 – DEC/2024</div>
+                <p class="education-description" data-i18n="edu.item2.desc">
                     I gained experience in projects involving software development, database 
                     management, web programming, computer graphics, computer networks, 
                     and object-oriented programming. 
@@ -382,13 +424,13 @@
     <div class="education-grid">
         <div class="education-card">
             <div>
-                <img src="assets/salesforce.png" alt="Salesforce" class="education-icon">
+                <img src="assets/salesforce.png" alt="Salesforce" class="education-icon" loading="lazy" decoding="async">
             </div>
             <div class="education-content">
-                <h3 class="education-title">Salesforce Certified Platform Foundations</h3>
-                <h4 class="education-institution">Salesforce</h4>
-                <div class="education-period">2024</div>
-                <p class="education-description">
+                <h3 class="education-title" data-i18n="edu.item3.title">Salesforce Certified Platform Foundations</h3>
+                <h4 class="education-institution" data-i18n="edu.item3.inst">Salesforce</h4>
+                <div class="education-period" data-i18n="edu.item3.period">2024</div>
+                <p class="education-description" data-i18n="edu.item3.desc">
                     Fundamentals of Salesforce development, CRM customization, Apex and SOQL basics.
                 </p>
             </div>
@@ -396,13 +438,13 @@
 
         <div class="education-card">
             <div>
-                <img src="assets/udemy.png" alt="Udemy" class="education-icon">
+                <img src="assets/udemy.png" alt="Udemy" class="education-icon" loading="lazy" decoding="async">
             </div>
             <div class="education-content">
-                <h3 class="education-title">The Complete Salesforce Development Course</h3>
-                <h4 class="education-institution">Udemy</h4>
-                <div class="education-period">2024</div>
-                <p class="education-description">
+                <h3 class="education-title" data-i18n="edu.item4.title">The Complete Salesforce Development Course</h3>
+                <h4 class="education-institution" data-i18n="edu.item4.inst">Udemy</h4>
+                <div class="education-period" data-i18n="edu.item4.period">2024</div>
+                <p class="education-description" data-i18n="edu.item4.desc">
                     15+ hands-on projects covering Apex, LWC, SOQL, Governor Limits, and Salesforce architecture.
                 </p>
             </div>
@@ -410,13 +452,13 @@
 
         <div class="education-card">
             <div>
-                <img src="assets/univap.png" alt="Univap" class="education-icon">
+                <img src="assets/univap.png" alt="Univap" class="education-icon" loading="lazy" decoding="async">
             </div>
             <div class="education-content">
-                <h3 class="education-title">4th Place – INIC UNIVAP</h3>
-                <h4 class="education-institution">Universidade do Vale do Paraíba</h4>
-                <div class="education-period">2024</div>
-                <p class="education-description">
+                <h3 class="education-title" data-i18n="edu.item5.title">4th Place – INIC UNIVAP</h3>
+                <h4 class="education-institution" data-i18n="edu.item5.inst">Universidade do Vale do Paraíba</h4>
+                <div class="education-period" data-i18n="edu.item5.period">2024</div>
+                <p class="education-description" data-i18n="edu.item5.desc">
                     Recognition in scientific initiation for innovative IT project development.
                 </p>
             </div>
@@ -424,39 +466,39 @@
 
         <div class="education-card">
             <div>
-                <img src="assets/maratona.png" alt="Univap" class="education-icon">
+                <img src="assets/maratona.png" alt="Univap" class="education-icon" loading="lazy" decoding="async">
             </div>
             <div class="education-content">
-                <h3 class="education-title">Programming Marathon – Participant</h3>
-                <h4 class="education-institution">Junior Programming Marathon</h4>
-                <div class="education-period">2022/2023/2024</div>
-                <p class="education-description">
+                <h3 class="education-title" data-i18n="edu.item6.title">Programming Marathon – Participant</h3>
+                <h4 class="education-institution" data-i18n="edu.item6.inst">Junior Programming Marathon</h4>
+                <div class="education-period" data-i18n="edu.item6.period">2022/2023/2024</div>
+                <p class="education-description" data-i18n="edu.item6.desc">
                     Participation in competitive programming marathon applying algorithms and teamwork.
                 </p>
             </div>
         </div>
         <div class="education-card">
             <div>
-                <img src="assets/univap.png" alt="Univap" class="education-icon">
+                <img src="assets/univap.png" alt="Univap" class="education-icon" loading="lazy" decoding="async">
             </div>
             <div class="education-content">
-                <h3 class="education-title">Data Analysis in Excel</h3>
-                <h4 class="education-institution">Independent Certification</h4>
-                <div class="education-period">2023</div>
-                <p class="education-description">
+                <h3 class="education-title" data-i18n="edu.item7.title">Data Analysis in Excel</h3>
+                <h4 class="education-institution" data-i18n="edu.item7.inst">Independent Certification</h4>
+                <div class="education-period" data-i18n="edu.item7.period">2023</div>
+                <p class="education-description" data-i18n="edu.item7.desc">
                     Training focused on data cleaning, pivot tables, formulas, charts, and insights for decision-making using Excel.
                 </p>
             </div>
         </div>
         <div class="education-card">
             <div>
-                <img src="assets/salesforce2.png" alt="Salesforce" class="education-icon">
+                <img src="assets/salesforce2.png" alt="Salesforce" class="education-icon" loading="lazy" decoding="async">
             </div>
             <div class="education-content">
-                <h3 class="education-title">Trailhead – Salesforce Mountaineer</h3>
-                <h4 class="education-institution">Salesforce Trailhead</h4>
-                <div class="education-period">Ongoing</div>
-                <p class="education-description">
+                <h3 class="education-title" data-i18n="edu.item8.title">Trailhead – Salesforce Mountaineer</h3>
+                <h4 class="education-institution" data-i18n="edu.item8.inst">Salesforce Trailhead</h4>
+                <div class="education-period" data-i18n="edu.item8.period">Ongoing</div>
+                <p class="education-description" data-i18n="edu.item8.desc">
                     30+ badges earned, 25.000+ points. Focused on Apex, SOQL, Lightning Web Components, and automation.
                 </p>
             </div>
@@ -477,8 +519,8 @@
         <div class="projects-grid">
             <div class="project-card">
                 <div class="project-image">
-                    <img src="assets/projeto1.png" alt="Projeto 1">
-                    <video class="project-video" src="assets/projeto1.mp4" playsinline></video>
+                    <img src="assets/projeto1.png" alt="Projeto 1" loading="lazy" decoding="async">
+                    <video class="project-video" src="assets/projeto1.mp4" playsinline muted preload="metadata"></video>
                     <div class="project-overlay">
                         <div class="project-links">
                             <a href="#" class="project-link"><i data-lucide="github"></i></a>
@@ -487,8 +529,8 @@
                     </div>
                 </div>
                 <div class="project-content">
-                    <h3 class="project-title">Car Deals-CMS</h3>
-                    <p class="project-description">
+                    <h3 class="project-title" data-i18n="proj.card1.title">Car Deals-CMS</h3>
+                    <p class="project-description" data-i18n="proj.card1.desc">
                         CarDeals CMS is a content management system for car dealerships built with PHP and MySQL. It lets administrators manage cars and users while customers browse and purchase vehicles through a simple responsive interface.
                     </p>
                     <div class="project-tech">
@@ -500,8 +542,8 @@
             </div>
             <div class="project-card">
                 <div class="project-image">
-                    <img src="assets/projeto2.png" alt="Projeto 2">
-                    <video class="project-video" src="assets/projeto2.mp4" playsinline></video>
+                    <img src="assets/projeto2.png" alt="Projeto 2" loading="lazy" decoding="async">
+                    <video class="project-video" src="assets/projeto2.mp4" playsinline muted preload="metadata"></video>
                     <div class="project-overlay">
                         <div class="project-links">
                             <a href="#" class="project-link"><i data-lucide="github"></i></a>
@@ -510,8 +552,8 @@
                     </div>
                 </div>
                 <div class="project-content">
-                    <h3 class="project-title">CryptoDashboard</h3>
-                    <p class="project-description">
+                    <h3 class="project-title" data-i18n="proj.card2.title">CryptoDashboard</h3>
+                    <p class="project-description" data-i18n="proj.card2.desc">
                         CryptoDashboard is a full-stack cryptocurrency tracking application that lets users register, login, explore 50+ coins, view interactive charts, manage a virtual balance and read live crypto news.
                     </p>
                     <div class="project-tech">
@@ -524,8 +566,8 @@
             </div>
             <div class="project-card">
                 <div class="project-image">
-                    <img src="assets/projeto3.png" alt="Projeto 3">
-                    <video class="project-video" src="assets/projeto3.mp4" playsinline></video>
+                    <img src="assets/projeto3.png" alt="Projeto 3" loading="lazy" decoding="async">
+                    <video class="project-video" src="assets/projeto3.mp4" playsinline muted preload="metadata"></video>
                     <div class="project-overlay">
                         <div class="project-links">
                             <a href="#" class="project-link"><i data-lucide="github"></i></a>
@@ -534,8 +576,8 @@
                     </div>
                 </div>
                 <div class="project-content">
-                    <h3 class="project-title">Word Shuffle (Salesforce)</h3>
-                    <p class="project-description">
+                    <h3 class="project-title" data-i18n="proj.card3.title">Word Shuffle (Salesforce)</h3>
+                    <p class="project-description" data-i18n="proj.card3.desc">
                         Word Shuffle is a Lightning Aura based mini-game embedded in the Salesforce Service App Home Tab. Users receive a shuffled word and must guess the correct one within limited attempts depending on difficulty.
                     </p>
                     <div class="project-tech">
@@ -596,13 +638,13 @@
                     </div>
                 </div>
                 <div class="social-links">
-                    <a href="https://github.com/MatheusVGonzalez" class="social-link" target="_blank">
+                    <a href="https://github.com/MatheusVGonzalez" class="social-link" target="_blank" rel="noopener">
                         <img src="assets/github.png" alt="GitHub" class="social-link">
                     </a>
-                    <a href="https://www.linkedin.com/in/matheus-vgonzalez/" class="social-link" target="_blank">
+                    <a href="https://www.linkedin.com/in/matheus-vgonzalez/" class="social-link" target="_blank" rel="noopener">
                         <img src="assets/linkedin.png" alt="Linkedin" class="social-link">
                     </a>
-                    <a href="https://www.instagram.com/matheus.vg_/" class="social-link" target="_blank">
+                    <a href="https://www.instagram.com/matheus.vg_/" class="social-link" target="_blank" rel="noopener">
                         <img src="assets/instagram.png" alt="Instagram" class="social-link">
                     </a>
                 </div>

@@ -3,6 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Projetos de Matheus Gonzalez — Portfólio com vídeos e descrições detalhadas.">
+  <meta name="theme-color" content="#00ff88">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Projetos | Matheus Gonzalez">
+  <meta property="og:description" content="Veja os projetos com vídeos de demonstração e tecnologias utilizadas.">
+  <meta property="og:image" content="assets/projeto1.png">
+  <link rel="icon" href="assets/github.png">
   <title>Projetos | Matheus Gonzalez</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -43,8 +50,12 @@
         <li><a href="index.html#contact" class="nav-link" data-i18n="nav.contact">Contact</a></li>
       </ul>
       <div class="nav-lang">
-        <button id="lang-pt" aria-label="Português" class="lang-btn">🇧🇷</button>
-        <button id="lang-en" aria-label="English" class="lang-btn">🇺🇸</button>
+        <select id="lang-select" class="lang-select" aria-label="Select language">
+          <option value="pt">🇧🇷 Português</option>
+          <option value="en">🇺🇸 English</option>
+        </select>
+        <button id="lang-pt" aria-label="Português" class="lang-btn" style="display:none">Português</button>
+        <button id="lang-en" aria-label="English" class="lang-btn" style="display:none">English</button>
       </div>
       <div class="hamburger">
         <span></span><span></span><span></span>
@@ -66,12 +77,12 @@
         <!-- Static project cards replicating index format; edit mp4/img/text freely -->
         <div class="project-card" data-project="car-deals-cms">
           <div class="project-image">
-            <img src="assets/projeto1.png" alt="Car Deals CMS">
-            <video class="project-video" src="assets/projeto1.mp4" playsinline muted></video>
+            <img src="assets/projeto1.png" alt="Car Deals CMS" loading="lazy" decoding="async">
+            <video class="project-video" src="assets/projeto1.mp4" playsinline muted preload="metadata"></video>
             <div class="project-overlay">
               <div class="project-links">
-                <a href="https://github.com/MatheusVGonzalez/Car-Deals-" target="_blank" class="project-link"><i data-lucide="github"></i></a>
-                <a href="#" class="project-link"><i data-lucide="external-link"></i></a>
+                <a href="https://github.com/MatheusVGonzalez/Car-Deals-" target="_blank" rel="noopener" class="project-link"><i data-lucide="github"></i></a>
+                <a href="#" class="project-link" target="_blank" rel="noopener"><i data-lucide="external-link"></i></a>
               </div>
             </div>
           </div>
@@ -89,12 +100,12 @@
         </div>
         <div class="project-card" data-project="crypto-dashboard">
           <div class="project-image">
-            <img src="assets/projeto2.png" alt="CryptoDashboard">
-            <video class="project-video" src="assets/projeto2.mp4" playsinline muted></video>
+            <img src="assets/projeto2.png" alt="CryptoDashboard" loading="lazy" decoding="async">
+            <video class="project-video" src="assets/projeto2.mp4" playsinline muted preload="metadata"></video>
             <div class="project-overlay">
               <div class="project-links">
-                <a href="https://github.com/MatheusVGonzalez/CryptoDashboard" target="_blank" class="project-link"><i data-lucide="github"></i></a>
-                <a href="#" class="project-link"><i data-lucide="external-link"></i></a>
+                <a href="https://github.com/MatheusVGonzalez/CryptoDashboard" target="_blank" rel="noopener" class="project-link"><i data-lucide="github"></i></a>
+                <a href="#" class="project-link" target="_blank" rel="noopener"><i data-lucide="external-link"></i></a>
               </div>
             </div>
           </div>
@@ -113,12 +124,12 @@
         </div>
         <div class="project-card" data-project="word-shuffle">
           <div class="project-image">
-            <img src="assets/projeto3.png" alt="Word Shuffle">
-            <video class="project-video" src="assets/projeto3.mp4" playsinline muted></video>
+            <img src="assets/projeto3.png" alt="Word Shuffle" loading="lazy" decoding="async">
+            <video class="project-video" src="assets/projeto3.mp4" playsinline muted preload="metadata"></video>
             <div class="project-overlay">
               <div class="project-links">
-                <a href="https://github.com/MatheusVGonzalez/Word-Shuffle-Aura-Game" target="_blank" class="project-link"><i data-lucide="github"></i></a>
-                <a href="#" class="project-link"><i data-lucide="external-link"></i></a>
+                <a href="https://github.com/MatheusVGonzalez/Word-Shuffle-Aura-Game" target="_blank" rel="noopener" class="project-link"><i data-lucide="github"></i></a>
+                <a href="#" class="project-link" target="_blank" rel="noopener"><i data-lucide="external-link"></i></a>
               </div>
             </div>
           </div>
@@ -137,11 +148,11 @@
         </div>    
         <div class="project-card" data-project="grocery-store-system">
                 <div class="project-image">
-                  <img src="assets/projeto6.png" alt="Grocery Store Management">
-                  <video class="project-video" src="assets/projeto6.mp4" playsinline muted></video>
+                  <img src="assets/projeto6.png" alt="Grocery Store Management" loading="lazy" decoding="async">
+                  <video class="project-video" src="assets/projeto6.mp4" playsinline muted preload="metadata"></video>
                   <div class="project-overlay">
                     <div class="project-links">
-                      <a href="https://github.com/MatheusVGonzalez/grocery-django" target="_blank" class="project-link" aria-label="GitHub" title="GitHub"><i class="fab fa-github"></i></a>
+                      <a href="https://github.com/MatheusVGonzalez/grocery-django" target="_blank" rel="noopener" class="project-link" aria-label="GitHub" title="GitHub"><i class="fab fa-github"></i></a>
                     </div>
                   </div>
                 </div>
@@ -157,11 +168,11 @@
               </div>
           <div class="project-card" data-project="dog-memory-game">
             <div class="project-image">
-              <img src="assets/projeto4.png" alt="Dog Memory Adventure">
-              <video class="project-video" src="assets/projeto4.mp4" playsinline muted></video>
+              <img src="assets/projeto4.png" alt="Dog Memory Adventure" loading="lazy" decoding="async">
+              <video class="project-video" src="assets/projeto4.mp4" playsinline muted preload="metadata"></video>
               <div class="project-overlay">
                 <div class="project-links">
-                  <a href="https://github.com/MatheusVGonzalez/js-mini-app-2" target="_blank" class="project-link" aria-label="GitHub" title="GitHub"><i class="fab fa-github"></i></a>
+                  <a href="https://github.com/MatheusVGonzalez/js-mini-app-2" target="_blank" rel="noopener" class="project-link" aria-label="GitHub" title="GitHub"><i class="fab fa-github"></i></a>
                 </div>
               </div>
             </div>
@@ -179,11 +190,11 @@
           </div>
               <div class="project-card" data-project="dream-car-site">
                 <div class="project-image">
-                  <img src="assets/projeto5.png" alt="Dream Car Website">
-                  <video class="project-video" src="assets/projeto5.mp4" playsinline muted></video>
+                  <img src="assets/projeto5.png" alt="Dream Car Website" loading="lazy" decoding="async">
+                  <video class="project-video" src="assets/projeto5.mp4" playsinline muted preload="metadata"></video>
                   <div class="project-overlay">
                     <div class="project-links">
-                      <a href="https://github.com/MatheusVGonzalez/FinalProject1M" target="_blank" class="project-link" aria-label="GitHub" title="GitHub"><i class="fab fa-github"></i></a>
+                      <a href="https://github.com/MatheusVGonzalez/FinalProject1M" target="_blank" rel="noopener" class="project-link" aria-label="GitHub" title="GitHub"><i class="fab fa-github"></i></a>
                     </div>
                   </div>
                 </div>
@@ -199,11 +210,11 @@
               </div>
              <div class="project-card" data-project="inventory-system">
   <div class="project-image">
-    <img src="assets/projeto7.png" alt="Inventory Management System">
-    <video class="project-video" src="assets/projeto7.mp4" playsinline muted></video>
+    <img src="assets/projeto7.png" alt="Inventory Management System" loading="lazy" decoding="async">
+    <video class="project-video" src="assets/projeto7.mp4" playsinline muted preload="metadata"></video>
     <div class="project-overlay">
       <div class="project-links">
-        <a href="https://github.com/MatheusVGonzalez/InventorySysPY" target="_blank" class="project-link" aria-label="GitHub" title="GitHub">
+        <a href="https://github.com/MatheusVGonzalez/InventorySysPY" target="_blank" rel="noopener" class="project-link" aria-label="GitHub" title="GitHub">
           <i class="fab fa-github"></i>
         </a>
       </div>
@@ -254,5 +265,21 @@
   </footer>
 
   <script src="projects.js"></script>
+  <script>
+    (function(){
+      const params = new URLSearchParams(window.location.search);
+      const lang = params.get('lang') || 'en';
+      const select = document.getElementById('lang-select');
+      if (select) {
+        select.value = lang;
+        select.addEventListener('change', (e) => {
+          const val = e.target.value;
+          const url = new URL(window.location.href);
+          url.searchParams.set('lang', val);
+          window.location.href = url.toString();
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
