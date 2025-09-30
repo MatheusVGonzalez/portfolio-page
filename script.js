@@ -773,7 +773,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const select = document.getElementById('lang-select');
     if (!select) return;
     const params = new URLSearchParams(window.location.search);
-    const current = params.get('lang') || 'en';
+    let current = params.get('lang');
+    if (!current) { try { current = localStorage.getItem('lang'); } catch(_) {} }
+    if (!current) { current = (document.documentElement.lang || '').startsWith('pt') ? 'pt' : 'en'; }
     select.value = current;
     select.addEventListener('change', (e) => {
         const lang = e.target.value;
@@ -1005,19 +1007,47 @@ function applyTranslations(lang) {
     });
 }
 
+// Ensure all internal links keep the selected language in their URL
+function updateLinksWithLang(lang) {
+    const anchors = document.querySelectorAll('a[href]');
+    anchors.forEach(a => {
+        const href = a.getAttribute('href');
+        if (!href) return;
+        // Skip external or special links
+        if (href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+        // Keep pure hash links as-is
+        if (href.startsWith('#')) return;
+        // Only adjust HTML pages
+        if (!href.includes('.html')) return;
+        const [pathAndQuery, hash] = href.split('#');
+        const [path, query] = pathAndQuery.split('?');
+        const params = new URLSearchParams(query || '');
+        params.set('lang', lang);
+        const newHref = `${path}?${params.toString()}${hash ? `#${hash}` : ''}`;
+        a.setAttribute('href', newHref);
+    });
+}
+
 function setLanguage(lang) {
     // Update URL param without reload
     const url = new URL(window.location.href);
     url.searchParams.set('lang', lang);
     window.history.replaceState({}, '', url);
+    try { localStorage.setItem('lang', lang); } catch(_) {}
     applyTranslations(lang);
+    updateLinksWithLang(lang);
 }
 
 // Apply on load
 document.addEventListener('DOMContentLoaded', () => {
     const params = new URLSearchParams(window.location.search);
-    const lang = params.get('lang') || 'en';
+    let lang = params.get('lang');
+    if (!lang) {
+        try { lang = localStorage.getItem('lang'); } catch(_) {}
+    }
+    if (!lang) lang = 'en';
     applyTranslations(lang);
+    updateLinksWithLang(lang);
     // Ensure intro overlay stays hidden if present
     const intro = document.getElementById('intro-overlay');
     if (intro) intro.style.display = 'none';

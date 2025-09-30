@@ -62,7 +62,26 @@
     const url = new URL(window.location.href);
     url.searchParams.set('lang', lang);
     window.history.replaceState({}, '', url.toString());
+    try { localStorage.setItem('lang', lang); } catch(_) {}
     apply(lang);
+    updateLinksWithLang(lang);
+  }
+
+  function updateLinksWithLang(lang){
+    const anchors = document.querySelectorAll('a[href]');
+    anchors.forEach(a => {
+      const href = a.getAttribute('href');
+      if (!href) return;
+      if (href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+      if (href.startsWith('#')) return;
+      if (!href.includes('.html')) return;
+      const [pathAndQuery, hash] = href.split('#');
+      const [path, query] = pathAndQuery.split('?');
+      const params = new URLSearchParams(query || '');
+      params.set('lang', lang);
+      const newHref = `${path}?${params.toString()}${hash ? `#${hash}` : ''}`;
+      a.setAttribute('href', newHref);
+    });
   }
 
   function initAge(){
@@ -81,10 +100,13 @@
 
 
   document.addEventListener('DOMContentLoaded', () => {
-    // Lang from query param or default to pt
-    const params = new URLSearchParams(window.location.search);
-    const lang = params.get('lang') || 'pt';
+  // Lang from query param, else localStorage, else default 'en'
+  const params = new URLSearchParams(window.location.search);
+  let lang = params.get('lang');
+  if (!lang) { try { lang = localStorage.getItem('lang'); } catch(_) {} }
+  if (!lang) lang = 'en';
     apply(lang);
+  updateLinksWithLang(lang);
 
     // Language select (dropdown)
     const select = document.getElementById('lang-select');

@@ -381,8 +381,30 @@ const filtersOrder = ['filter.all','filter.fullstack','filter.frontend','filter.
 
 function getLang(){
   const param = new URLSearchParams(window.location.search).get('lang');
-  const htmlLang = document.documentElement.lang.startsWith('pt') ? 'pt':'en';
-  return param || htmlLang || 'en';
+  if (param) return param;
+  try {
+    const stored = localStorage.getItem('lang');
+    if (stored) return stored;
+  } catch(_) {}
+  const htmlLang = document.documentElement.lang && document.documentElement.lang.startsWith('pt') ? 'pt':'en';
+  return htmlLang || 'en';
+}
+
+function updateLinksWithLang(lang){
+  const anchors = document.querySelectorAll('a[href]');
+  anchors.forEach(a => {
+    const href = a.getAttribute('href');
+    if (!href) return;
+    if (href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+    if (href.startsWith('#')) return;
+    if (!href.includes('.html')) return;
+    const [pathAndQuery, hash] = href.split('#');
+    const [path, query] = pathAndQuery.split('?');
+    const params = new URLSearchParams(query || '');
+    params.set('lang', lang);
+    const newHref = `${path}?${params.toString()}${hash ? `#${hash}` : ''}`;
+    a.setAttribute('href', newHref);
+  });
 }
 
 function applyProjectsTranslations(lang){
@@ -474,6 +496,7 @@ function renderProjects(filter){
 function initExtendedProjects(){
   const lang = getLang();
   applyProjectsTranslations(lang);
+  updateLinksWithLang(lang);
   // If static cards exist (matching index format) we skip dynamic rendering
   const staticCards = document.querySelectorAll('#allProjectsGrid .project-card');
   if (staticCards.length > 0){
@@ -539,8 +562,10 @@ function switchLang(lang){
   params.set('lang', lang);
   const newUrl = window.location.pathname + '?' + params.toString();
   window.history.replaceState({}, '', newUrl);
+  try { localStorage.setItem('lang', lang); } catch(_) {}
   document.documentElement.lang = lang === 'pt' ? 'pt-BR':'en';
   applyProjectsTranslations(lang);
+  updateLinksWithLang(lang);
   const staticMode = document.querySelectorAll('#allProjectsGrid .project-card').length > 0 && !document.querySelector('#allProjectsGrid .project-card.generated');
   if (staticMode){
     updateStaticCardsLanguage(lang);
