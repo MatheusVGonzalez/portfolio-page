@@ -1,56 +1,57 @@
-# Portfolio Page – Matheus Gonzalez
+# Portfolio – Matheus Gonzalez
 
-Modern, animated personal portfolio built with HTML, CSS and vanilla JavaScript. Designed to impress with cyber/3D visuals, GSAP intro, Matrix rain, interactive particles, and smooth scroll animations.
+Animated, bilingual portfolio built with HTML, CSS, and vanilla JavaScript. Cyber UI with GSAP intro, Matrix rain, particles, smooth animations, and an accessible UX.
 
 ## Highlights
-- GSAP-powered intro with 3D laptop boot overlay
-- Cyber Matrix rain background and particles
-- Responsive layout and mobile navigation
-- Skills bars with animated percentage and neon theme
-- Language switcher (EN/PT) with instant i18n updates
-- Floating contact button and easy-to-find contact info
-- EmailJS integration for the contact form
-- Downloadable resume per language (curriculo.pdf / resume.pdf)
+- Bilingual (EN/PT) with instant i18n and persistence across pages (query param + localStorage)
+- Multi-page: Home, dedicated About page, and extended Projects page with filters and modal details
+- Hero focus on Salesforce + Full‑Stack with compact tech chips
+- Accessible CV dropdown with 3 options: EN combined + 2 PT versions
+- GSAP intro (3D laptop boot) and animated sections on scroll
+- Project cards with video hover preview and detailed modal
+- Responsive design, mobile nav, and floating contact button
+- EmailJS-powered contact form
+- Performance/SEO polish: lazy images, preload metadata for videos, rel=noopener, meta tags
 
 ## Getting Started
-Open index.html in a browser. No build is required.
+Open index.html in your browser. No build step required.
 
-If hosting locally with a static server, place all files in the web root.
+For local hosting, serve the folder with any static server.
 
-## Project Structure
-- index.html – Page content and sections
-- style.css – Styles and responsive rules
-- script.js – Animations, i18n, effects, and interactions
-- assets/ – Icons and images
-- curriculo.pdf – Resume (Portuguese)
-- resume.pdf – Resume (English)
+## Structure
+- index.html — Home (hero, experience, skills, education, featured projects, contact)
+- about.html — Dedicated About page (bio, personal info, CTAs)
+- projects.html — Extended Projects (filters, static cards + modal)
+- style.css — Global styles and components (nav, hero, dropdowns, modals)
+- script.js — Home behaviors: animations, i18n, CV menu, modal, link lang propagation
+- about.js — About page i18n + dynamic age and lang propagation
+- projects.js — Projects page i18n, filters, modal, link lang propagation
+- assets/ — Images, icons, and videos
+- resume.pdf — English resume (Salesforce + Web combined)
+- curriculo.pdf — Portuguese resume (Web Dev)
+- salesforce-cv-pt.pdf — Portuguese resume (Salesforce)
 
-## Language Switching
-- Use the 🇧🇷 or 🇺🇸 buttons in the navbar
-- URL param ?lang=pt or ?lang=en is set without reload
-- All elements with data-i18n update instantly
+## Language Switching (EN/PT)
+- Navbar language selector updates the page instantly
+- The current language is stored in the URL (?lang=en|pt) and in localStorage
+- Internal links are automatically rewritten to carry the current language, so navigation keeps the same locale
+- All elements with data-i18n update without a full reload
 
-## Download Resume
-- Button: "Download CV" in the Hero section
-- Downloads resume.pdf for EN and curriculo.pdf for PT automatically
+## CV Download (Dropdown)
+- In the hero, use the CV dropdown to choose one of the PDFs:
+	- Resume — English (Salesforce + Web) → `resume.pdf`
+	- Salesforce — Portuguese → `salesforce-cv-pt.pdf`
+	- Web Developer — Portuguese → `curriculo.pdf`
 
 ## Contact Form
-- EmailJS is used; update keys in index.html if needed
+- EmailJS integration; update your service/template IDs in `index.html` if needed
 
-## Teacher Requirements Mapping
-1. Contact info: Contact section with email, location, and floating FAB
-2. Bio/About: About section with description and stats
-3. Relevant experience: Experience timeline with roles and dates
-4. Context: Each role includes description, tech stack, and timing; projects include descriptions and tech
-5. Relevant skills: Skills section with animated bars
-6. Personal projects: Featured Projects section
-7. Documented source code: This README and commented script.js
-8. Education: Education & Certifications section
-9. Social profiles: GitHub / LinkedIn / Instagram links
-10. Awards/recognition: Education cards include awards and achievements
-11. Your photo: Hero profile image
-12. Downloadable resume: Download CV button wired
+## Accessibility & UX
+- Keyboard support for menus and modals (ESC closes)
+- Focus outlines for interactive elements
+- Readable language dropdown on dark theme
+- External links use rel="noopener"
 
 ## Notes
-- This site uses GSAP and Lucide via CDN
-- Adjust content and data-i18n strings as needed in script.js
+- GSAP and Lucide icons are loaded via CDN
+- Adjust content and translations in `script.js`, `about.js`, and `projects.js`
